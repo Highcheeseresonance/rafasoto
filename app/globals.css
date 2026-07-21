@@ -60,8 +60,8 @@ button {
 
 .brand-mark {
   display: block;
-  width: 74px;
-  height: 40px;
+  width: clamp(132px, 13vw, 210px);
+  height: 58px;
   text-decoration: none;
 }
 
@@ -674,8 +674,8 @@ button {
   }
 
   .brand-mark {
-    width: 60px;
-    height: 36px;
+    width: 116px;
+    height: 42px;
   }
 
   .lang-switch,
