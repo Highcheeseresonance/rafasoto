@@ -11,6 +11,7 @@ type Product = {
   price: number;
   mode: "buy" | "drop";
   image?: string;
+  mockupImage?: string;
   palette: string;
   line: Record<Lang, string>;
 };
@@ -96,6 +97,7 @@ const products: Product[] = [
     price: 42,
     mode: "buy",
     image: "/assets/sunriot.png",
+    mockupImage: "/assets/sunriot-mockup.png",
     palette: "sun",
     line: {
       en: "For people who have made peace with the glare.",
@@ -109,6 +111,7 @@ const products: Product[] = [
     price: 42,
     mode: "buy",
     image: "/assets/duskpop.png",
+    mockupImage: "/assets/duskpop-mockup.png",
     palette: "dusk",
     line: {
       en: "A small collapse of color at the end of the day.",
@@ -122,6 +125,7 @@ const products: Product[] = [
     price: 42,
     mode: "buy",
     image: "/assets/daymelt.png",
+    mockupImage: "/assets/daymelt-mockup.png",
     palette: "day",
     line: {
       en: "The afternoon has softened. So have your standards.",
@@ -135,6 +139,7 @@ const products: Product[] = [
     price: 42,
     mode: "buy",
     image: "/assets/soulspill.png",
+    mockupImage: "/assets/soulspill-mockup.png",
     palette: "soul",
     line: {
       en: "Emotional leakage, tastefully contained.",
@@ -148,6 +153,7 @@ const products: Product[] = [
     price: 42,
     mode: "buy",
     image: "/assets/karmaggedon.png",
+    mockupImage: "/assets/karmaggedon-mockup.png",
     palette: "karma",
     line: {
       en: "Consequences, but with better kerning.",
@@ -161,6 +167,7 @@ const products: Product[] = [
     price: 42,
     mode: "buy",
     image: "/assets/motelism.png",
+    mockupImage: "/assets/motelism-mockup.png",
     palette: "motel",
     line: {
       en: "The philosophy of leaving before breakfast.",
@@ -174,6 +181,7 @@ const products: Product[] = [
     price: 42,
     mode: "drop",
     image: "/assets/driftique.png",
+    mockupImage: "/assets/driftique-mockup.png",
     palette: "drift",
     line: {
       en: "Available only after a small act of aim.",
@@ -187,6 +195,7 @@ const products: Product[] = [
     price: 42,
     mode: "drop",
     image: "/assets/moonjuice.png",
+    mockupImage: "/assets/moonjuice-mockup.png",
     palette: "moon",
     line: {
       en: "Hydration for bodies with no disclosed origin.",
@@ -200,6 +209,7 @@ const products: Product[] = [
     price: 42,
     mode: "drop",
     image: "/assets/doomsnack.png",
+    mockupImage: "/assets/doomsnack-mockup.png",
     palette: "doom",
     line: {
       en: "A final bite, calmly styled.",
@@ -744,7 +754,20 @@ export default function Home() {
             <article className={`product-card ${product.palette}`} key={product.id}>
               <div className="product-image">
                 {product.image ? (
-                  <img src={product.image} alt={`${product.name} T-shirt worn by an alien model`} />
+                  <>
+                    <img
+                      className="product-main-img"
+                      src={product.image}
+                      alt={`${product.name} T-shirt worn by an alien model`}
+                    />
+                    {product.mockupImage && (
+                      <img
+                        className="product-hover-img"
+                        src={product.mockupImage}
+                        alt={`${product.name} T-shirt mockup`}
+                      />
+                    )}
+                  </>
                 ) : (
                   <div className="word-plate">
                     <span>{product.name}</span>
