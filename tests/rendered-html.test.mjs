@@ -45,7 +45,11 @@ test("source contains collection and drop logic", async () => {
 
   assert.match(page, /Sunriot/);
   assert.match(page, /Duskpop/);
+  assert.match(page, /Sunphony/);
+  assert.match(page, /Miguel Payá/);
   assert.match(page, /Moonjuice/);
+  assert.match(page, /hero-desktop\.jpg/);
+  assert.match(page, /hero-mobile\.jpeg/);
   assert.match(page, /AsteroidsGame/);
   assert.match(page, /canvasRef/);
   assert.match(page, /onUnlock\(asteroid\.word\.id\)/);

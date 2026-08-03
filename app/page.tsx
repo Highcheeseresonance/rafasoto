@@ -32,7 +32,7 @@ const copy = {
     playDrops: "Enter the back room",
     capsule: "First transmission",
     capsuleText:
-      "Six pieces are available now. Three only appear after the right asteroid is destroyed. Replenishment exists. Dignity is not guaranteed.",
+      "Six pieces are available now. Four only appear after the right asteroid is destroyed. Replenishment exists. Dignity is not guaranteed.",
     available: "Available",
     hidden: "Drop",
     add: "Add to cart",
@@ -42,7 +42,7 @@ const copy = {
     gameTitle: "Play for Drops",
     gameText:
       "Destroy the asteroids carrying words. If the word survives your taste, it enters the cart automatically.",
-    gameHint: "Click word asteroids to unlock Driftique, Moonjuice or Doomsnack.",
+    gameHint: "Destroy word asteroids to unlock Sunphony, Driftique, Moonjuice or Doomsnack.",
     aboutTitle: "About",
     aboutText:
       "Asteroids Supply makes T-shirts from words that should not exist and aliens who behave as if premium fashion were a perfectly normal human ritual.",
@@ -66,7 +66,7 @@ const copy = {
     playDrops: "Entrar a la trastienda",
     capsule: "Primera transmisión",
     capsuleText:
-      "Seis piezas están disponibles. Tres aparecen solo cuando destruyes el asteroide correcto. Hay reposición. La dignidad no está incluida.",
+      "Seis piezas están disponibles. Cuatro aparecen solo cuando destruyes el asteroide correcto. Hay reposición. La dignidad no está incluida.",
     available: "Disponible",
     hidden: "Drop",
     add: "Añadir a la cesta",
@@ -76,7 +76,7 @@ const copy = {
     gameTitle: "Play for Drops",
     gameText:
       "Destruye los asteroides que llevan palabras. Si la palabra sobrevive a tu criterio, entra automáticamente en la cesta.",
-    gameHint: "Haz click en los asteroides con palabra para desbloquear Driftique, Moonjuice o Doomsnack.",
+    gameHint: "Destruye los asteroides con palabra para desbloquear Sunphony, Driftique, Moonjuice o Doomsnack.",
     aboutTitle: "About",
     aboutText:
       "Asteroids Supply hace camisetas a partir de palabras que no deberian existir y aliens que actuan como si la moda premium fuese un ritual humano perfectamente normal.",
@@ -175,6 +175,20 @@ const products: Product[] = [
     },
   },
   {
+    id: "sunphony",
+    name: "Sunphony",
+    designer: "Miguel Payá",
+    price: 42,
+    mode: "drop",
+    image: "/assets/sunphony.jpg",
+    mockupImage: "/assets/sunphony-mockup.jpg",
+    palette: "sunphony",
+    line: {
+      en: "A controlled solar arrangement for difficult listeners.",
+      es: "Un arreglo solar controlado para oyentes difíciles.",
+    },
+  },
+  {
     id: "driftique",
     name: "Driftique",
     designer: "Isabelita Virtual",
@@ -230,6 +244,7 @@ type AsteroidsGameProps = {
 };
 
 const dropWords = [
+  { id: "sunphony", word: "SUNPHONY" },
   { id: "driftique", word: "DRIFTIQUE" },
   { id: "moonjuice", word: "MOONJUICE" },
   { id: "doomsnack", word: "DOOMSNACK" },
@@ -723,7 +738,10 @@ export default function Home() {
       </header>
 
       <section className="hero" id="top">
-        <img src="/assets/hero-arcade.jpeg" alt="Alien model wearing Asteroids Supply in an arcade" />
+        <picture>
+          <source media="(max-width: 700px)" srcSet="/assets/hero-mobile.jpeg" />
+          <img src="/assets/hero-desktop.jpg" alt="Alien models wearing Asteroids Supply beside arcade machines" />
+        </picture>
         <div className="hero-overlay" />
         <div className="hero-copy">
           <p>{t.heroKicker}</p>
