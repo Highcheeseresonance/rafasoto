@@ -12,11 +12,23 @@ type Product = {
   mode: "buy" | "drop";
   image?: string;
   mockupImage?: string;
+  gallery?: ProductImage[];
   palette: string;
   line: Record<Lang, string>;
 };
 
 type CartItem = Product & { qty: number };
+
+type ProductImage = {
+  src: string;
+  label: string;
+};
+
+const galleryFor = (id: string, labels: string[]): ProductImage[] =>
+  labels.map((label, index) => ({
+    src: `/assets/gallery/${id}-${String(index + 1).padStart(2, "0")}.jpg`,
+    label,
+  }));
 
 const copy = {
   en: {
@@ -98,6 +110,7 @@ const products: Product[] = [
     mode: "buy",
     image: "/assets/sunriot.png",
     mockupImage: "/assets/sunriot-mockup.png",
+    gallery: galleryFor("sunriot", ["Alien look 01", "Alien look 02", "Alien look 03", "T-shirt mockup"]),
     palette: "sun",
     line: {
       en: "For people who have made peace with the glare.",
@@ -112,6 +125,7 @@ const products: Product[] = [
     mode: "buy",
     image: "/assets/duskpop.png",
     mockupImage: "/assets/duskpop-mockup.png",
+    gallery: galleryFor("duskpop", ["Alien look 01", "Alien look 02", "Alien look 03", "T-shirt mockup"]),
     palette: "dusk",
     line: {
       en: "A small collapse of color at the end of the day.",
@@ -126,6 +140,7 @@ const products: Product[] = [
     mode: "buy",
     image: "/assets/daymelt.png",
     mockupImage: "/assets/daymelt-mockup.png",
+    gallery: galleryFor("daymelt", ["Alien look 01", "Alien look 02", "Front mockup", "Back mockup"]),
     palette: "day",
     line: {
       en: "The afternoon has softened. So have your standards.",
@@ -140,6 +155,7 @@ const products: Product[] = [
     mode: "buy",
     image: "/assets/soulspill.png",
     mockupImage: "/assets/soulspill-mockup.png",
+    gallery: galleryFor("soulspill", ["Alien look 01", "Alien look 02", "Front mockup", "Back mockup"]),
     palette: "soul",
     line: {
       en: "Emotional leakage, tastefully contained.",
@@ -154,6 +170,7 @@ const products: Product[] = [
     mode: "buy",
     image: "/assets/karmaggedon.png",
     mockupImage: "/assets/karmaggedon-mockup.png",
+    gallery: galleryFor("karmaggedon", ["Alien look 01", "Alien look 02", "T-shirt mockup"]),
     palette: "karma",
     line: {
       en: "Consequences, but with better kerning.",
@@ -168,6 +185,7 @@ const products: Product[] = [
     mode: "buy",
     image: "/assets/motelism.png",
     mockupImage: "/assets/motelism-mockup.png",
+    gallery: galleryFor("motelism", ["Alien look 01", "Alien look 02", "T-shirt mockup"]),
     palette: "motel",
     line: {
       en: "The philosophy of leaving before breakfast.",
@@ -182,6 +200,7 @@ const products: Product[] = [
     mode: "drop",
     image: "/assets/sunphony.jpg",
     mockupImage: "/assets/sunphony-mockup.jpg",
+    gallery: galleryFor("sunphony", ["Alien look 01", "Alien look 02", "Front mockup", "Back mockup"]),
     palette: "sunphony",
     line: {
       en: "A controlled solar arrangement for difficult listeners.",
@@ -196,6 +215,7 @@ const products: Product[] = [
     mode: "drop",
     image: "/assets/driftique.png",
     mockupImage: "/assets/driftique-mockup.png",
+    gallery: galleryFor("driftique", ["Alien look 01", "Alien look 02", "T-shirt mockup"]),
     palette: "drift",
     line: {
       en: "Available only after a small act of aim.",
@@ -210,6 +230,7 @@ const products: Product[] = [
     mode: "drop",
     image: "/assets/moonjuice.png",
     mockupImage: "/assets/moonjuice-mockup.png",
+    gallery: galleryFor("moonjuice", ["Alien look 01", "Alien look 02", "T-shirt mockup"]),
     palette: "moon",
     line: {
       en: "Hydration for bodies with no disclosed origin.",
@@ -224,6 +245,7 @@ const products: Product[] = [
     mode: "drop",
     image: "/assets/doomsnack.png",
     mockupImage: "/assets/doomsnack-mockup.png",
+    gallery: galleryFor("doomsnack", ["Alien look 01", "Alien look 02", "T-shirt mockup"]),
     palette: "doom",
     line: {
       en: "A final bite, calmly styled.",
@@ -683,6 +705,64 @@ function AsteroidsGame({ onUnlock }: AsteroidsGameProps) {
   );
 }
 
+function ProductGallery({ product }: { product: Product }) {
+  const fallbackGallery = [
+    product.image && { src: product.image, label: "Alien look" },
+    product.mockupImage && { src: product.mockupImage, label: "T-shirt mockup" },
+  ].filter(Boolean) as ProductImage[];
+  const gallery = product.gallery?.length ? product.gallery : fallbackGallery;
+  const [index, setIndex] = useState(0);
+  const active = gallery[index] ?? gallery[0];
+
+  const move = (direction: number) => {
+    setIndex((current) => (current + direction + gallery.length) % gallery.length);
+  };
+
+  if (!active) {
+    return (
+      <div className="word-plate">
+        <span>{product.name}</span>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <img className="product-main-img" src={active.src} alt={`${product.name} ${active.label}`} />
+      {gallery.length > 1 && (
+        <div className="gallery-controls">
+          <button
+            className="gallery-arrow prev"
+            onClick={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              move(-1);
+            }}
+            aria-label={`Previous ${product.name} image`}
+          >
+            ‹
+          </button>
+          <button
+            className="gallery-arrow next"
+            onClick={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              move(1);
+            }}
+            aria-label={`Next ${product.name} image`}
+          >
+            ›
+          </button>
+          <span className="gallery-caption">{active.label}</span>
+          <span className="gallery-count">
+            {index + 1}/{gallery.length}
+          </span>
+        </div>
+      )}
+    </>
+  );
+}
+
 export default function Home() {
   const [lang, setLang] = useState<Lang>("en");
   const [cart, setCart] = useState<Record<string, CartItem>>({});
@@ -771,26 +851,7 @@ export default function Home() {
           {products.map((product) => (
             <article className={`product-card ${product.palette}`} key={product.id}>
               <div className="product-image">
-                {product.image ? (
-                  <>
-                    <img
-                      className="product-main-img"
-                      src={product.image}
-                      alt={`${product.name} T-shirt worn by an alien model`}
-                    />
-                    {product.mockupImage && (
-                      <img
-                        className="product-hover-img"
-                        src={product.mockupImage}
-                        alt={`${product.name} T-shirt mockup`}
-                      />
-                    )}
-                  </>
-                ) : (
-                  <div className="word-plate">
-                    <span>{product.name}</span>
-                  </div>
-                )}
+                <ProductGallery product={product} />
                 <span className="product-badge">{product.mode === "buy" ? t.available : t.hidden}</span>
               </div>
               <div className="product-copy">
