@@ -54,6 +54,8 @@ test("source contains collection and drop logic", async () => {
   assert.match(page, /ProductGallery/);
   assert.match(page, /galleryFor\("sunphony"/);
   assert.match(page, /gallery-count/);
+  assert.match(page, /WordDisplay/);
+  assert.match(page, /added\. Keep playing/);
   assert.match(page, /canvasRef/);
   assert.match(page, /onUnlock\(asteroid\.word\.id\)/);
   assert.match(page, /logo-as-blanco\.png/);

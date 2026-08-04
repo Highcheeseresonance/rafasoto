@@ -272,6 +272,15 @@ const dropWords = [
   { id: "doomsnack", word: "DOOMSNACK" },
 ];
 
+type WordDisplay = {
+  text: string;
+  x: number;
+  y: number;
+  life: number;
+  timer: number;
+  color: string;
+};
+
 function AsteroidsGame({ onUnlock }: AsteroidsGameProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const keysRef = useRef<Record<string, boolean>>({});
@@ -315,6 +324,7 @@ function AsteroidsGame({ onUnlock }: AsteroidsGameProps) {
     }> = [];
     const particles: Array<{ x: number; y: number; vx: number; vy: number; life: number; color: string; size: number }> =
       [];
+    const wordDisplays: WordDisplay[] = [];
     const stars = Array.from({ length: 90 }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
@@ -372,16 +382,16 @@ function AsteroidsGame({ onUnlock }: AsteroidsGameProps) {
     };
 
     const createAsteroid = (forceWord = false) => {
-      const size = 18 + Math.random() * 24;
+      const shouldCarryWord = forceWord || rocks > 0 && rocks % 3 === 2;
+      const word = shouldCarryWord ? dropWords[nextDropIndex % dropWords.length] : undefined;
+      if (word) nextDropIndex += 1;
+      const size = word ? 46 + Math.random() * 12 : 18 + Math.random() * 24;
       const pointCount = 8 + Math.floor(Math.random() * 4);
       const points = Array.from({ length: pointCount }, (_, index) => {
         const angle = (index / pointCount) * Math.PI * 2;
         const radius = size * (0.72 + Math.random() * 0.34);
         return { x: Math.cos(angle) * radius, y: Math.sin(angle) * radius };
       });
-      const shouldCarryWord = forceWord || rocks > 0 && rocks % 4 === 3;
-      const word = shouldCarryWord ? dropWords[nextDropIndex % dropWords.length] : undefined;
-      if (word) nextDropIndex += 1;
 
       asteroids.push({
         x: size + Math.random() * (width - size * 2),
@@ -411,6 +421,7 @@ function AsteroidsGame({ onUnlock }: AsteroidsGameProps) {
       bullets.length = 0;
       asteroids.length = 0;
       particles.length = 0;
+      wordDisplays.length = 0;
       status = "Use arrows to move. Space shoots.";
       setGameOver(false);
       publishHud();
@@ -495,8 +506,16 @@ function AsteroidsGame({ onUnlock }: AsteroidsGameProps) {
             score += 10 * combo;
             burst(asteroid.x, asteroid.y, asteroid.word ? "#d9fb63" : "#8ea7aa", asteroid.word ? 34 : 16);
             if (asteroid.word) {
+              wordDisplays.push({
+                text: asteroid.word.word,
+                x: Math.max(110, Math.min(width - 110, asteroid.x)),
+                y: Math.max(60, Math.min(height - 80, asteroid.y)),
+                life: 1,
+                timer: 0,
+                color: "#d9fb63",
+              });
               onUnlock(asteroid.word.id);
-              status = `${asteroid.word.word} entered the cart. Very normal.`;
+              status = `${asteroid.word.word} added. Keep playing.`;
               wordCounter = 0;
             }
             bullets.splice(i, 1);
@@ -506,12 +525,20 @@ function AsteroidsGame({ onUnlock }: AsteroidsGameProps) {
         }
       }
 
-      if (runningRef.current && spawnTimer > 0.72) {
-        spawnTimer = 0;
-        if (Math.random() < 0.48) createAsteroid(wordCounter >= 4);
+      for (let i = wordDisplays.length - 1; i >= 0; i -= 1) {
+        const display = wordDisplays[i];
+        display.timer += 0.016;
+        display.y -= 0.18;
+        display.life = display.timer < 1.15 ? 1 : Math.max(0, 1 - (display.timer - 1.15) / 0.45);
+        if (display.life <= 0) wordDisplays.splice(i, 1);
       }
 
-      if (runningRef.current && asteroids.length === 0) createAsteroid(wordCounter >= 3);
+      if (runningRef.current && spawnTimer > 0.72) {
+        spawnTimer = 0;
+        if (Math.random() < 0.5) createAsteroid(wordCounter >= 3);
+      }
+
+      if (runningRef.current && asteroids.length === 0) createAsteroid(wordCounter >= 2);
 
       for (const star of stars) {
         star.y += star.speed;
@@ -571,10 +598,13 @@ function AsteroidsGame({ onUnlock }: AsteroidsGameProps) {
         ctx.stroke();
         if (asteroid.word) {
           ctx.rotate(-asteroid.rotation);
-          ctx.font = "10px monospace";
+          ctx.font = "700 13px monospace";
           ctx.textAlign = "center";
           ctx.textBaseline = "middle";
-          ctx.fillStyle = "#efede3";
+          ctx.lineWidth = 4;
+          ctx.strokeStyle = "rgba(3,4,4,0.72)";
+          ctx.strokeText(asteroid.word.word, 0, 0);
+          ctx.fillStyle = "#f6f4e8";
           ctx.fillText(asteroid.word.word, 0, 0);
         }
         ctx.restore();
@@ -586,6 +616,23 @@ function AsteroidsGame({ onUnlock }: AsteroidsGameProps) {
         ctx.fillRect(particle.x, particle.y, particle.size, particle.size);
       }
       ctx.globalAlpha = 1;
+
+      for (const display of wordDisplays) {
+        ctx.save();
+        ctx.globalAlpha = display.life;
+        const scale = 1 + Math.sin(display.timer * 8) * 0.04;
+        ctx.translate(display.x, display.y);
+        ctx.scale(scale, scale);
+        ctx.font = "700 28px Arial";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.lineWidth = 6;
+        ctx.strokeStyle = "rgba(3,4,4,0.84)";
+        ctx.strokeText(display.text, 0, 0);
+        ctx.fillStyle = display.color;
+        ctx.fillText(display.text, 0, 0);
+        ctx.restore();
+      }
 
       if (!started) {
         ctx.fillStyle = "rgba(3,4,4,0.72)";
@@ -793,7 +840,6 @@ export default function Home() {
         [id]: { ...product, qty: 1 },
       };
     });
-    setCartOpen(true);
   }, []);
 
   return (
