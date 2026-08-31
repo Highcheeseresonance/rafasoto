@@ -65,7 +65,9 @@ test("source contains collection and drop logic", async () => {
   assert.match(page, /WordDisplay/);
   assert.match(page, /added\. Keep playing/);
   assert.match(page, /canvasRef/);
-  assert.match(page, /onUnlock\(asteroid\.word\.id\)/);
+  assert.match(page, /wordBurst/);
+  assert.match(page, /wordColors/);
+  assert.match(page, /onUnlock\(wordData\.id\)/);
   assert.match(page, /logo-as-blanco\.png/);
   assert.match(layout, /unlock access/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);

@@ -292,6 +292,7 @@ type AsteroidsGameProps = {
 const gameWords = products.map((product) => ({
   id: product.id,
   word: product.name.toUpperCase(),
+  colorMode: product.id === "karmaggedon" || product.id === "motelism" ? "grayscale" : "color",
 }));
 
 type WordDisplay = {
@@ -300,7 +301,10 @@ type WordDisplay = {
   y: number;
   life: number;
   timer: number;
-  color: string;
+  colors: {
+    primary: string;
+    shadow: string;
+  };
 };
 
 function AsteroidsGame({ onUnlock }: AsteroidsGameProps) {
@@ -342,7 +346,9 @@ function AsteroidsGame({ onUnlock }: AsteroidsGameProps) {
       rotation: number;
       rotationSpeed: number;
       points: Array<{ x: number; y: number }>;
-      word?: (typeof gameWords)[number];
+      baseColor: string;
+      lightColor: string;
+      darkColor: string;
     }> = [];
     const particles: Array<{ x: number; y: number; vx: number; vy: number; life: number; color: string; size: number }> =
       [];
@@ -360,8 +366,10 @@ function AsteroidsGame({ onUnlock }: AsteroidsGameProps) {
     let combo = 1;
     let comboTimer = 0;
     let elapsed = 0;
+    let currentRamp = 0;
     let spawnTimer = 0;
     let wordCounter = 0;
+    let sinceLastWord = 0;
     let nextDropIndex = 0;
     let shipActive = true;
     let localGameOver = false;
@@ -403,27 +411,60 @@ function AsteroidsGame({ onUnlock }: AsteroidsGameProps) {
       }
     };
 
+    const wordColors = (mode: string) => {
+      if (mode === "grayscale") {
+        const gray = 42 + Math.random() * 40;
+        return {
+          primary: `hsl(0, 0%, ${gray}%)`,
+          shadow: `hsl(0, 0%, ${Math.max(12, gray - 30)}%)`,
+        };
+      }
+      const hue = Math.random() * 360;
+      return {
+        primary: `hsl(${hue}, 86%, 65%)`,
+        shadow: `hsl(${hue}, 70%, 30%)`,
+      };
+    };
+
+    const wordBurst = (x: number, y: number, count = 30) => {
+      const colors = ["#ff6b35", "#f7931e", "#ffd23f", "#06ffa5", "#1fb3d3", "#5d4e75", "#ff006e", "#8338ec"];
+      for (let i = 0; i < count; i += 1) {
+        const angle = (i / count) * Math.PI * 2;
+        const speed = 3 + Math.random() * 5;
+        particles.push({
+          x,
+          y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          life: 1.5,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          size: 2 + Math.random() * 4,
+        });
+      }
+    };
+
     const createAsteroid = (forceWord = false) => {
-      const shouldCarryWord = forceWord || rocks > 0 && rocks % 3 === 2;
-      const word = shouldCarryWord ? gameWords[nextDropIndex % gameWords.length] : undefined;
-      if (word) nextDropIndex += 1;
-      const size = word ? 46 + Math.random() * 12 : 18 + Math.random() * 24;
+      void forceWord;
+      const size = 15 + Math.random() * 25;
       const pointCount = 8 + Math.floor(Math.random() * 4);
       const points = Array.from({ length: pointCount }, (_, index) => {
         const angle = (index / pointCount) * Math.PI * 2;
-        const radius = size * (0.72 + Math.random() * 0.34);
+        const radius = size * (0.7 + Math.random() * 0.3);
         return { x: Math.cos(angle) * radius, y: Math.sin(angle) * radius };
       });
+      const grayValue = Math.random() * 40 + 40;
 
       asteroids.push({
         x: size + Math.random() * (width - size * 2),
         y: -size * 2,
         size,
-        speed: 0.8 + Math.random() * 1.25 + Math.min(1.2, elapsed / 90),
+        speed: (0.8 + Math.random() * 1.5) * (1 + 0.6 * currentRamp),
         rotation: 0,
         rotationSpeed: (Math.random() - 0.5) * 0.08,
         points,
-        word,
+        baseColor: `hsl(200, 15%, ${grayValue}%)`,
+        lightColor: `hsl(200, 25%, ${grayValue + 15}%)`,
+        darkColor: `hsl(200, 10%, ${grayValue - 20}%)`,
       });
     };
 
@@ -434,8 +475,10 @@ function AsteroidsGame({ onUnlock }: AsteroidsGameProps) {
       combo = 1;
       comboTimer = 0;
       elapsed = 0;
+      currentRamp = 0;
       spawnTimer = 0;
       wordCounter = 0;
+      sinceLastWord = 0;
       nextDropIndex = 0;
       ship.x = width / 2 - 17;
       shipActive = true;
@@ -474,6 +517,8 @@ function AsteroidsGame({ onUnlock }: AsteroidsGameProps) {
       if (!runningRef.current && !localGameOver) return;
 
       elapsed += 0.016;
+      currentRamp = Math.min(1, elapsed / 120);
+      sinceLastWord += 0.016;
       spawnTimer += 0.016;
       comboTimer = Math.max(0, comboTimer - 0.016);
       if (comboTimer <= 0) combo = 1;
@@ -526,19 +571,27 @@ function AsteroidsGame({ onUnlock }: AsteroidsGameProps) {
             combo = comboTimer > 0 ? Math.min(5, combo + 1) : 1;
             comboTimer = 2.5;
             score += 10 * combo;
-            burst(asteroid.x, asteroid.y, asteroid.word ? "#d9fb63" : "#8ea7aa", asteroid.word ? 34 : 16);
-            if (asteroid.word) {
+            const hasWord = wordCounter >= 3 || sinceLastWord > 25;
+            if (hasWord) {
+              const wordData = gameWords[(nextDropIndex + Math.floor(Math.random() * gameWords.length)) % gameWords.length];
+              nextDropIndex += 1;
+              wordBurst(asteroid.x, asteroid.y);
               wordDisplays.push({
-                text: asteroid.word.word,
-                x: Math.max(110, Math.min(width - 110, asteroid.x)),
+                text: wordData.word,
+                x: Math.max(120, Math.min(width - 120, asteroid.x)),
                 y: Math.max(60, Math.min(height - 80, asteroid.y)),
-                life: 1,
+                life: 1.8,
                 timer: 0,
-                color: "#d9fb63",
+                colors: wordColors(wordData.colorMode),
               });
-              onUnlock(asteroid.word.id);
-              status = `${asteroid.word.word} added. Keep playing.`;
+              onUnlock(wordData.id);
+              status = `${wordData.word} added. Keep playing.`;
               wordCounter = 0;
+              sinceLastWord = 0;
+            } else {
+              burst(asteroid.x, asteroid.y, asteroid.baseColor, 12);
+              burst(asteroid.x, asteroid.y, asteroid.lightColor, 6);
+              status = "Rock destroyed. The word is being difficult.";
             }
             bullets.splice(i, 1);
             asteroids.splice(j, 1);
@@ -575,7 +628,7 @@ function AsteroidsGame({ onUnlock }: AsteroidsGameProps) {
     };
 
     const draw = () => {
-      ctx.fillStyle = "#030404";
+      ctx.fillStyle = "#000";
       ctx.fillRect(0, 0, width, height);
 
       for (const star of stars) {
@@ -591,43 +644,50 @@ function AsteroidsGame({ onUnlock }: AsteroidsGameProps) {
       if (!localGameOver && shipActive) {
         const x = Math.floor(ship.x);
         const y = Math.floor(ship.y);
-        ctx.fillStyle = "#d9fb63";
+        ctx.fillStyle = "#00ff00";
         ctx.fillRect(x + 11, y + 22, 12, 12);
-        ctx.fillStyle = "#8ba24a";
+        ctx.fillStyle = "#00cc00";
         ctx.fillRect(x + 5, y + 28, 6, 6);
         ctx.fillRect(x + 23, y + 28, 6, 6);
-        ctx.fillStyle = "#5ab0a8";
+        ctx.fillStyle = "#00ffff";
         ctx.fillRect(x + 14, y + 17, 6, 6);
-        ctx.fillStyle = "#efede3";
+        ctx.fillStyle = "#ff6600";
+        ctx.fillRect(x + 8, y + 34, 3, 3);
+        ctx.fillRect(x + 23, y + 34, 3, 3);
+        ctx.fillStyle = "#ffff00";
+        ctx.fillRect(x + 14, y + 34, 6, 3);
+        ctx.fillStyle = "#00ff00";
         ctx.fillRect(x + 15, y + 11, 3, 6);
       }
 
-      ctx.fillStyle = "#efede3";
+      ctx.fillStyle = "#ffff00";
       for (const bullet of bullets) ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
 
       for (const asteroid of asteroids) {
         ctx.save();
         ctx.translate(asteroid.x, asteroid.y);
         ctx.rotate(asteroid.rotation);
-        ctx.fillStyle = asteroid.word ? "rgba(217,251,99,0.16)" : "rgba(239,237,227,0.11)";
-        ctx.strokeStyle = asteroid.word ? "#d9fb63" : "rgba(239,237,227,0.38)";
-        ctx.lineWidth = asteroid.word ? 2 : 1;
+        ctx.fillStyle = asteroid.darkColor;
+        ctx.beginPath();
+        ctx.moveTo(asteroid.points[0].x + 1, asteroid.points[0].y + 1);
+        for (let i = 1; i < asteroid.points.length; i += 1) ctx.lineTo(asteroid.points[i].x + 1, asteroid.points[i].y + 1);
+        ctx.closePath();
+        ctx.fill();
+        ctx.fillStyle = asteroid.baseColor;
         ctx.beginPath();
         ctx.moveTo(asteroid.points[0].x, asteroid.points[0].y);
         for (let i = 1; i < asteroid.points.length; i += 1) ctx.lineTo(asteroid.points[i].x, asteroid.points[i].y);
         ctx.closePath();
         ctx.fill();
-        ctx.stroke();
-        if (asteroid.word) {
-          ctx.rotate(-asteroid.rotation);
-          ctx.font = "700 13px monospace";
-          ctx.textAlign = "center";
-          ctx.textBaseline = "middle";
-          ctx.lineWidth = 4;
-          ctx.strokeStyle = "rgba(3,4,4,0.72)";
-          ctx.strokeText(asteroid.word.word, 0, 0);
-          ctx.fillStyle = "#f6f4e8";
-          ctx.fillText(asteroid.word.word, 0, 0);
+        if (asteroid.points.length > 1) {
+          ctx.fillStyle = asteroid.lightColor;
+          ctx.beginPath();
+          ctx.moveTo(asteroid.points[0].x, asteroid.points[0].y);
+          ctx.lineTo(asteroid.points[1].x, asteroid.points[1].y);
+          ctx.lineTo(asteroid.points[1].x - 2, asteroid.points[1].y - 2);
+          ctx.lineTo(asteroid.points[0].x - 2, asteroid.points[0].y - 2);
+          ctx.closePath();
+          ctx.fill();
         }
         ctx.restore();
       }
@@ -648,10 +708,10 @@ function AsteroidsGame({ onUnlock }: AsteroidsGameProps) {
         ctx.font = "700 28px Arial";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        ctx.lineWidth = 6;
-        ctx.strokeStyle = "rgba(3,4,4,0.84)";
+        ctx.lineWidth = 5;
+        ctx.strokeStyle = display.colors.shadow;
         ctx.strokeText(display.text, 0, 0);
-        ctx.fillStyle = display.color;
+        ctx.fillStyle = display.colors.primary;
         ctx.fillText(display.text, 0, 0);
         ctx.restore();
       }

@@ -773,9 +773,11 @@ a:focus-visible {
   justify-content: space-between;
   gap: 12px;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 12px;
+  font-size: 13px;
   text-transform: uppercase;
-  color: var(--muted);
+  color: #d6e2f6;
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 12px rgba(135, 206, 235, 0.28);
 }
 
 .game-topline {
@@ -787,8 +789,9 @@ a:focus-visible {
 }
 
 .game-topline strong {
-  color: var(--acid);
+  color: #00ff88;
   font-weight: 700;
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.4);
 }
 
 .game-shell canvas {
@@ -796,8 +799,8 @@ a:focus-visible {
   width: 100%;
   max-height: min(68vh, 640px);
   aspect-ratio: 4 / 3;
-  border: 1px solid var(--line);
-  background: #030404;
+  border: 2px solid #444;
+  background: #000;
   image-rendering: pixelated;
 }
 
