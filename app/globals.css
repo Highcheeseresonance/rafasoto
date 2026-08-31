@@ -43,6 +43,12 @@ button {
   font: inherit;
 }
 
+button:focus-visible,
+a:focus-visible {
+  outline: 1px solid rgba(217, 251, 99, 0.78);
+  outline-offset: 3px;
+}
+
 .site-header {
   position: fixed;
   top: 0;
@@ -66,8 +72,8 @@ button {
 
 .brand-mark {
   display: block;
-  width: clamp(220px, 22vw, 360px);
-  height: 76px;
+  width: clamp(300px, 28vw, 520px);
+  height: clamp(86px, 7vw, 126px);
   border: 0;
   padding: 0;
   background: transparent;
@@ -79,7 +85,7 @@ button {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 0 14px rgba(239, 237, 227, 0.2));
+  filter: drop-shadow(0 0 18px rgba(239, 237, 227, 0.3));
 }
 
 .site-header nav {
@@ -238,7 +244,7 @@ button {
 .splash-copy {
   position: relative;
   z-index: 1;
-  max-width: 980px;
+  max-width: min(1160px, 76vw);
 }
 
 .splash-copy p,
@@ -253,10 +259,16 @@ button {
 
 .splash-copy h1 {
   margin: 0;
-  max-width: 8.2ch;
-  font-size: clamp(72px, 12vw, 188px);
-  line-height: 0.82;
+  max-width: 8.7ch;
+  color: #f7f4e9;
+  font-family: "Arial Black", Arial, Helvetica, sans-serif;
+  font-size: clamp(88px, 12.8vw, 214px);
+  font-weight: 900;
+  line-height: 0.78;
   letter-spacing: 0;
+  text-shadow:
+    0 0 1px rgba(247, 244, 233, 0.78),
+    0 18px 42px rgba(0, 0, 0, 0.42);
   text-transform: uppercase;
 }
 
@@ -273,26 +285,32 @@ button {
 
 .splash-actions {
   display: grid;
-  grid-template-columns: repeat(2, minmax(220px, 1fr));
+  grid-template-columns: minmax(210px, 0.95fr) minmax(260px, 0.95fr);
   gap: 12px;
-  width: min(720px, 100%);
+  width: min(780px, 100%);
   margin-top: 34px;
 }
 
 .splash-actions button {
   min-height: clamp(78px, 10vw, 118px);
   border: 1px solid rgba(239, 237, 227, 0.72);
+  padding: 14px 24px;
   background: rgba(239, 237, 227, 0.08);
   color: var(--paper);
-  font-size: clamp(28px, 5vw, 58px);
+  font-size: clamp(28px, 4.4vw, 56px);
   line-height: 1;
   text-transform: uppercase;
   cursor: pointer;
+  overflow-wrap: anywhere;
 }
 
 .splash-actions button:first-child {
   background: var(--paper);
   color: var(--ink);
+}
+
+.splash-actions button:last-child {
+  font-size: clamp(24px, 3.35vw, 45px);
 }
 
 .cover-meta {
