@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Asteroids Supply",
   description:
-    "Alien-modeled organic cotton T-shirts made from invented words. Shop the collection or play for drops.",
+    "Alien-modeled organic cotton T-shirts made from invented words. Play Asteroids Supply to find words and unlock access.",
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",

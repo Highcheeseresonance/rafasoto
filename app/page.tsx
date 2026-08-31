@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 type Lang = "en" | "es";
+type View = "splash" | "play" | "collection" | "about" | "contact";
 
 type Product = {
   id: string;
@@ -32,33 +33,37 @@ const galleryFor = (id: string, labels: string[]): ProductImage[] =>
 
 const copy = {
   en: {
-    navShop: "Shop",
-    navDrops: "Play for Drops",
+    menu: "Menu",
+    navPlay: "Play",
+    navCollection: "The Collection",
     navAbout: "About",
+    navContact: "Contact",
     cart: "Cart",
-    heroKicker: "Organic cotton garments from a desert that denies everything.",
+    heroKicker: "Insert coin. Behave normally.",
     heroTitle: "Asteroids Supply",
     heroBody:
-      "A fashion brand with alien models, invented words and the quiet confidence of someone badly pretending to be human.",
-    shopNow: "Shop available words",
-    playDrops: "Enter the back room",
-    capsule: "First transmission",
-    capsuleText:
-      "Six pieces are available now. Four only appear after the right asteroid is destroyed. Replenishment exists. Dignity is not guaranteed.",
-    available: "Available",
-    hidden: "Drop",
-    add: "Add to cart",
-    locked: "Unlock in game",
+      "A fashion brand disguised as an abandoned arcade machine. Destroy the right words. Earn access to shirts that should not exist.",
+    play: "PLAY",
+    collection: "THE COLLECTION",
+    collectionTitle: "The Collection",
+    collectionText:
+      "Eleven organic cotton T-shirts modeled by aliens with unsettling professional range. You may inspect them here. You may not buy them here.",
+    foundAccess: "Found by play",
+    playToGet: "play to get the t-shirts",
     designer: "Designer",
     material: "Organic cotton, made on demand through La Tostadora.",
-    gameTitle: "Play for Drops",
+    gameTitle: "Play",
     gameText:
-      "Destroy the asteroids carrying words. If the word survives your taste, it enters the cart automatically.",
-    gameHint: "Destroy word asteroids to unlock Sunphony, Driftique, Moonjuice or Doomsnack.",
+      "Destroy asteroids carrying words. Every word you hit enters the cart as possible access to that T-shirt.",
+    gameHint: "The basket only fills when the rock had something to say.",
     aboutTitle: "About",
     aboutText:
-      "Asteroids Supply makes T-shirts from words that should not exist and aliens who behave as if premium fashion were a perfectly normal human ritual.",
-    empty: "The cart is elegantly empty.",
+      "Asteroids Supply makes T-shirts from words that should not exist and aliens who behave as if premium fashion were a perfectly normal human ritual. The joke is not that they are aliens. The joke is that they understand us too well.",
+    contactTitle: "Contact",
+    contactText: "For orders, collaborations, strange sightings and normal emails.",
+    email: "hello@asteroidssuppply.com",
+    instagram: "@asteroidssupply",
+    empty: "The basket is elegantly empty.",
     subtotal: "Subtotal",
     checkout: "Checkout soon",
     clear: "Clear",
@@ -66,32 +71,36 @@ const copy = {
     bilingual: "EN / ES",
   },
   es: {
-    navShop: "Tienda",
-    navDrops: "Play for Drops",
+    menu: "Menu",
+    navPlay: "Play",
+    navCollection: "The Collection",
     navAbout: "About",
+    navContact: "Contact",
     cart: "Cesta",
-    heroKicker: "Camisetas de algodón orgánico desde un desierto que lo niega todo.",
+    heroKicker: "Insert coin. Behave normally.",
     heroTitle: "Asteroids Supply",
     heroBody:
-      "Una marca de moda con modelos alienígenas, palabras inventadas y la discreta seguridad de alguien imitando mal a un humano.",
-    shopNow: "Comprar palabras",
-    playDrops: "Entrar a la trastienda",
-    capsule: "Primera transmisión",
-    capsuleText:
-      "Seis piezas están disponibles. Cuatro aparecen solo cuando destruyes el asteroide correcto. Hay reposición. La dignidad no está incluida.",
-    available: "Disponible",
-    hidden: "Drop",
-    add: "Añadir a la cesta",
-    locked: "Desbloquear jugando",
+      "Una marca de moda disfrazada de máquina arcade abandonada. Destruye las palabras correctas. Consigue acceso a camisetas que no deberían existir.",
+    play: "PLAY",
+    collection: "THE COLLECTION",
+    collectionTitle: "The Collection",
+    collectionText:
+      "Once camisetas de algodón orgánico posadas por aliens con una inquietante profesionalidad. Puedes mirarlas aquí. No puedes comprarlas aquí.",
+    foundAccess: "Found by play",
+    playToGet: "play to get the t-shirts",
     designer: "Diseñador",
     material: "Algodón orgánico, producido bajo demanda con La Tostadora.",
-    gameTitle: "Play for Drops",
+    gameTitle: "Play",
     gameText:
-      "Destruye los asteroides que llevan palabras. Si la palabra sobrevive a tu criterio, entra automáticamente en la cesta.",
-    gameHint: "Destruye los asteroides con palabra para desbloquear Sunphony, Driftique, Moonjuice o Doomsnack.",
+      "Destruye asteroides con palabras. Cada palabra que aciertas entra en la cesta como posible acceso a esa camiseta.",
+    gameHint: "La cesta solo se llena cuando la roca tenia algo que decir.",
     aboutTitle: "About",
     aboutText:
-      "Asteroids Supply hace camisetas a partir de palabras que no deberian existir y aliens que actuan como si la moda premium fuese un ritual humano perfectamente normal.",
+      "Asteroids Supply hace camisetas a partir de palabras que no deberian existir y aliens que actuan como si la moda premium fuese un ritual humano perfectamente normal. La broma no es que sean aliens. La broma es que nos han entendido demasiado bien.",
+    contactTitle: "Contact",
+    contactText: "Para pedidos, colaboraciones, avistamientos raros y emails normales.",
+    email: "hello@asteroidssuppply.com",
+    instagram: "@asteroidssupply",
     empty: "La cesta está elegantemente vacía.",
     subtotal: "Subtotal",
     checkout: "Checkout pronto",
@@ -193,6 +202,21 @@ const products: Product[] = [
     },
   },
   {
+    id: "brainglow",
+    name: "Brainglow",
+    designer: "Guillem Martín",
+    price: 42,
+    mode: "drop",
+    image: "/assets/brainglow.jpg",
+    mockupImage: "/assets/brainglow-mockup.jpg",
+    gallery: galleryFor("brainglow", ["Alien look 01", "Alien lecture", "Emergency look", "T-shirt mockup"]),
+    palette: "brain",
+    line: {
+      en: "A thought arrived glowing. Nobody asked it to.",
+      es: "Llegó un pensamiento brillando. Nadie se lo pidió.",
+    },
+  },
+  {
     id: "sunphony",
     name: "Sunphony",
     designer: "Miguel Payá",
@@ -265,12 +289,10 @@ type AsteroidsGameProps = {
   onUnlock: (id: string) => void;
 };
 
-const dropWords = [
-  { id: "sunphony", word: "SUNPHONY" },
-  { id: "driftique", word: "DRIFTIQUE" },
-  { id: "moonjuice", word: "MOONJUICE" },
-  { id: "doomsnack", word: "DOOMSNACK" },
-];
+const gameWords = products.map((product) => ({
+  id: product.id,
+  word: product.name.toUpperCase(),
+}));
 
 type WordDisplay = {
   text: string;
@@ -320,7 +342,7 @@ function AsteroidsGame({ onUnlock }: AsteroidsGameProps) {
       rotation: number;
       rotationSpeed: number;
       points: Array<{ x: number; y: number }>;
-      word?: (typeof dropWords)[number];
+      word?: (typeof gameWords)[number];
     }> = [];
     const particles: Array<{ x: number; y: number; vx: number; vy: number; life: number; color: string; size: number }> =
       [];
@@ -383,7 +405,7 @@ function AsteroidsGame({ onUnlock }: AsteroidsGameProps) {
 
     const createAsteroid = (forceWord = false) => {
       const shouldCarryWord = forceWord || rocks > 0 && rocks % 3 === 2;
-      const word = shouldCarryWord ? dropWords[nextDropIndex % dropWords.length] : undefined;
+      const word = shouldCarryWord ? gameWords[nextDropIndex % gameWords.length] : undefined;
       if (word) nextDropIndex += 1;
       const size = word ? 46 + Math.random() * 12 : 18 + Math.random() * 24;
       const pointCount = 8 + Math.floor(Math.random() * 4);
@@ -812,6 +834,8 @@ function ProductGallery({ product }: { product: Product }) {
 
 export default function Home() {
   const [lang, setLang] = useState<Lang>("en");
+  const [view, setView] = useState<View>("splash");
+  const [menuOpen, setMenuOpen] = useState(false);
   const [cart, setCart] = useState<Record<string, CartItem>>({});
   const [cartOpen, setCartOpen] = useState(false);
   const t = copy[lang];
@@ -819,15 +843,12 @@ export default function Home() {
   const cartItems = useMemo(() => Object.values(cart), [cart]);
   const total = cartItems.reduce((sum, item) => sum + item.price * item.qty, 0);
 
-  const addToCart = useCallback((product: Product) => {
-    setCart((current) => ({
-      ...current,
-      [product.id]: {
-        ...product,
-        qty: (current[product.id]?.qty ?? 0) + 1,
-      },
-    }));
-    setCartOpen(true);
+  const showView = useCallback((next: View) => {
+    setView(next);
+    setMenuOpen(false);
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   }, []);
 
   const unlockDrop = useCallback((id: string) => {
@@ -843,16 +864,11 @@ export default function Home() {
   }, []);
 
   return (
-    <main>
-      <header className="site-header">
-        <a className="brand-mark" href="#top" aria-label="Asteroids Supply home">
+    <main className={`site-shell view-${view}`}>
+      <header className={`site-header ${view === "splash" ? "cover-header" : "solid-header"}`}>
+        <button className="brand-mark" onClick={() => showView("splash")} aria-label="Asteroids Supply home">
           <img src="/assets/logo-as-blanco.png" alt="" />
-        </a>
-        <nav aria-label="Primary navigation">
-          <a href="#shop">{t.navShop}</a>
-          <a href="#drops">{t.navDrops}</a>
-          <a href="#about">{t.navAbout}</a>
-        </nav>
+        </button>
         <div className="header-actions">
           <button className="lang-switch" onClick={() => setLang(lang === "en" ? "es" : "en")}>
             {t.bilingual}
@@ -860,90 +876,124 @@ export default function Home() {
           <button className="cart-button" onClick={() => setCartOpen(true)}>
             {t.cart} <span>{cartItems.reduce((sum, item) => sum + item.qty, 0)}</span>
           </button>
+          <button
+            className={`hamburger-button ${menuOpen ? "open" : ""}`}
+            onClick={() => setMenuOpen((current) => !current)}
+            aria-label={t.menu}
+            aria-expanded={menuOpen}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
         </div>
+        <nav className={`menu-panel ${menuOpen ? "open" : ""}`} aria-label="Primary navigation">
+          <button onClick={() => showView("play")}>{t.navPlay}</button>
+          <button onClick={() => showView("collection")}>{t.navCollection}</button>
+          <button onClick={() => showView("about")}>{t.navAbout}</button>
+          <button onClick={() => showView("contact")}>{t.navContact}</button>
+        </nav>
       </header>
 
-      <section className="hero" id="top">
-        <picture>
-          <source media="(max-width: 700px)" srcSet="/assets/hero-mobile.jpeg" />
-          <img src="/assets/hero-desktop.jpg" alt="Alien models wearing Asteroids Supply beside arcade machines" />
-        </picture>
-        <div className="hero-overlay" />
-        <div className="hero-copy">
-          <p>{t.heroKicker}</p>
-          <h1>{t.heroTitle}</h1>
-          <span>{t.heroBody}</span>
-          <div className="hero-actions">
-            <a href="#shop">{t.shopNow}</a>
-            <a href="#drops">{t.playDrops}</a>
+      {view === "splash" && (
+        <section className="splash-cover" aria-label="Asteroids Supply game cover">
+          <picture>
+            <source media="(max-width: 700px)" srcSet="/assets/hero-mobile.jpeg" />
+            <img src="/assets/hero-desktop.jpg" alt="Alien models wearing Asteroids Supply beside arcade machines" />
+          </picture>
+          <div className="splash-overlay" />
+          <div className="splash-copy">
+            <p>{t.heroKicker}</p>
+            <h1>{t.heroTitle}</h1>
+            <span>{t.heroBody}</span>
+            <div className="splash-actions">
+              <button onClick={() => showView("play")}>{t.play}</button>
+              <button onClick={() => showView("collection")}>{t.collection}</button>
+            </div>
           </div>
-        </div>
-      </section>
+          <div className="cover-meta">
+            <span>{products.length} words</span>
+            <span>{t.material}</span>
+          </div>
+        </section>
+      )}
 
-      <section className="intro-band" aria-label="Collection premise">
-        <div>
-          <p>{t.capsule}</p>
-          <h2>{t.capsuleText}</h2>
-        </div>
-        <span>{t.material}</span>
-      </section>
-
-      <section className="shop-section" id="shop">
-        <div className="section-heading">
-          <p>01</p>
-          <h2>Available words</h2>
-        </div>
-        <div className="product-grid">
-          {products.map((product) => (
-            <article className={`product-card ${product.palette}`} key={product.id}>
-              <div className="product-image">
-                <ProductGallery product={product} />
-                <span className="product-badge">{product.mode === "buy" ? t.available : t.hidden}</span>
-              </div>
-              <div className="product-copy">
-                <div>
-                  <h3>{product.name}</h3>
-                  <p>{product.line[lang]}</p>
+      {view === "collection" && (
+        <section className="screen-section collection-screen">
+          <div className="section-heading">
+            <p>01</p>
+            <div>
+              <h2>{t.collectionTitle}</h2>
+              <span>{t.collectionText}</span>
+            </div>
+          </div>
+          <div className="product-grid">
+            {products.map((product) => (
+              <article className={`product-card ${product.palette}`} key={product.id}>
+                <div className="product-image">
+                  <ProductGallery product={product} />
+                  <span className="product-badge">{t.foundAccess}</span>
                 </div>
-                <dl>
+                <div className="product-copy">
                   <div>
-                    <dt>{t.designer}</dt>
-                    <dd>{product.designer}</dd>
+                    <h3>{product.name}</h3>
+                    <p>{product.line[lang]}</p>
                   </div>
-                  <div>
-                    <dt>{t.sizes}</dt>
-                    <dd>42 EUR</dd>
-                  </div>
-                </dl>
-                <button
-                  onClick={() => product.mode === "buy" && addToCart(product)}
-                  disabled={product.mode === "drop"}
-                >
-                  {product.mode === "buy" ? t.add : t.locked}
-                </button>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
+                  <dl>
+                    <div>
+                      <dt>{t.designer}</dt>
+                      <dd>{product.designer}</dd>
+                    </div>
+                    <div>
+                      <dt>{t.sizes}</dt>
+                      <dd>42 EUR</dd>
+                    </div>
+                  </dl>
+                  <button onClick={() => showView("play")}>{t.playToGet}</button>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
 
-      <section className="drops-section" id="drops">
-        <div className="drops-copy">
-          <p>02</p>
-          <h2>{t.gameTitle}</h2>
-          <span>{t.gameText}</span>
-          <small>{t.gameHint}</small>
-        </div>
-        <AsteroidsGame onUnlock={unlockDrop} />
-      </section>
+      {view === "play" && (
+        <section className="screen-section play-screen">
+          <div className="drops-copy">
+            <p>02</p>
+            <h2>{t.gameTitle}</h2>
+            <span>{t.gameText}</span>
+            <small>{t.gameHint}</small>
+          </div>
+          <AsteroidsGame onUnlock={unlockDrop} />
+        </section>
+      )}
 
-      <section className="about-section" id="about">
-        <div>
-          <p>03</p>
-          <h2>{t.aboutTitle}</h2>
-        </div>
-        <p>{t.aboutText}</p>
-      </section>
+      {view === "about" && (
+        <section className="screen-section about-screen">
+          <div>
+            <p>03</p>
+            <h2>{t.aboutTitle}</h2>
+          </div>
+          <p>{t.aboutText}</p>
+        </section>
+      )}
+
+      {view === "contact" && (
+        <section className="screen-section contact-screen">
+          <div>
+            <p>04</p>
+            <h2>{t.contactTitle}</h2>
+            <span>{t.contactText}</span>
+          </div>
+          <div className="contact-list">
+            <a href={`mailto:${t.email}`}>{t.email}</a>
+            <a href="https://www.instagram.com/asteroidssupply/" target="_blank" rel="noreferrer">
+              {t.instagram}
+            </a>
+          </div>
+        </section>
+      )}
 
       <aside className={`cart-drawer ${cartOpen ? "open" : ""}`} aria-label="Shopping cart">
         <div className="cart-head">

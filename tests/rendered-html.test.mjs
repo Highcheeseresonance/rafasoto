@@ -31,8 +31,9 @@ test("server-renders Asteroids Supply", async () => {
   const html = await response.text();
   assert.match(html, /<title>Asteroids Supply<\/title>/i);
   assert.match(html, /Asteroids Supply/);
-  assert.match(html, /Shop/);
-  assert.match(html, /Play for Drops/);
+  assert.match(html, /PLAY/);
+  assert.match(html, /THE COLLECTION/);
+  assert.match(html, /Insert coin\. Behave normally\./);
   assert.doesNotMatch(html, /codex-preview|SkeletonPreview|react-loading-skeleton/i);
 });
 
@@ -47,18 +48,25 @@ test("source contains collection and drop logic", async () => {
   assert.match(page, /Duskpop/);
   assert.match(page, /Sunphony/);
   assert.match(page, /Miguel Payá/);
+  assert.match(page, /Brainglow/);
+  assert.match(page, /Guillem Martín/);
   assert.match(page, /Moonjuice/);
   assert.match(page, /hero-desktop\.jpg/);
   assert.match(page, /hero-mobile\.jpeg/);
   assert.match(page, /AsteroidsGame/);
   assert.match(page, /ProductGallery/);
   assert.match(page, /galleryFor\("sunphony"/);
+  assert.match(page, /galleryFor\("brainglow"/);
   assert.match(page, /gallery-count/);
+  assert.match(page, /splash-cover/);
+  assert.match(page, /hamburger-button/);
+  assert.match(page, /play to get the t-shirts/);
+  assert.match(page, /gameWords = products\.map/);
   assert.match(page, /WordDisplay/);
   assert.match(page, /added\. Keep playing/);
   assert.match(page, /canvasRef/);
   assert.match(page, /onUnlock\(asteroid\.word\.id\)/);
   assert.match(page, /logo-as-blanco\.png/);
-  assert.match(layout, /Alien-modeled organic cotton T-shirts/);
+  assert.match(layout, /unlock access/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
 });
