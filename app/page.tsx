@@ -31,6 +31,12 @@ const galleryFor = (id: string, labels: string[]): ProductImage[] =>
     label,
   }));
 
+const galleryItems = (id: string, items: Array<[number, string]>): ProductImage[] =>
+  items.map(([index, label]) => ({
+    src: `/assets/gallery/${id}-${String(index).padStart(2, "0")}.jpg`,
+    label,
+  }));
+
 const copy = {
   en: {
     menu: "Menu",
@@ -268,15 +274,11 @@ const products: Product[] = [
     mode: "drop",
     image: "/assets/driftique.png",
     mockupImage: "/assets/driftique-mockup.png",
-    gallery: galleryFor("driftique", [
-      "Alien look 01",
-      "Alien look 02",
-      "Alien look 03",
-      "Alien look 04",
-      "Alien look 05",
-      "Alien look 06",
-      "Alien look 07",
-      "T-shirt mockup",
+    gallery: galleryItems("driftique", [
+      [5, "Alien look 01"],
+      [6, "Alien look 02"],
+      [7, "Alien look 03"],
+      [8, "T-shirt mockup"],
     ]),
     palette: "drift",
     line: {

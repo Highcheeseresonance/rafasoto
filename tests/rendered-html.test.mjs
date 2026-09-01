@@ -57,6 +57,8 @@ test("source contains collection and drop logic", async () => {
   assert.match(page, /ProductGallery/);
   assert.match(page, /galleryFor\("sunphony"/);
   assert.match(page, /galleryFor\("brainglow"/);
+  assert.match(page, /galleryItems\("driftique"/);
+  assert.match(page, /\[5, "Alien look 01"\]/);
   assert.match(page, /gallery-count/);
   assert.match(page, /splash-cover/);
   assert.match(page, /hamburger-button/);
