@@ -258,13 +258,13 @@ a:focus-visible {
 }
 
 .splash-copy h1 {
-  margin: 0 0 0 -0.05em;
-  max-width: 8.4ch;
+  margin: 0;
+  max-width: 9ch;
   color: #f7f4e9;
-  font-family: Impact, "Arial Black", Arial, Helvetica, sans-serif;
-  font-size: clamp(92px, 12.2vw, 206px);
-  font-weight: 800;
-  line-height: 0.8;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-size: clamp(82px, 10.8vw, 178px);
+  font-weight: 860;
+  line-height: 0.84;
   letter-spacing: 0;
   text-shadow:
     0 0 1px rgba(247, 244, 233, 0.78),
@@ -285,25 +285,26 @@ a:focus-visible {
 
 .splash-actions {
   display: grid;
-  grid-template-columns: minmax(230px, 0.72fr) minmax(280px, 0.92fr);
-  align-items: end;
-  gap: 14px;
-  width: min(710px, 100%);
-  margin-top: 40px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 10px;
+  width: min(760px, 100%);
+  margin-top: 38px;
 }
 
 .splash-actions button {
   display: grid;
   grid-template-columns: auto 1fr;
-  align-items: end;
-  gap: 16px;
-  min-height: clamp(70px, 7.2vw, 96px);
+  align-items: center;
+  gap: 14px;
+  min-height: clamp(82px, 7.8vw, 104px);
   border: 1px solid rgba(239, 237, 227, 0.72);
-  padding: 12px 20px 14px;
+  padding: 14px 18px;
   background: rgba(239, 237, 227, 0.08);
   color: var(--paper);
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: clamp(25px, 3.4vw, 43px);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-size: clamp(24px, 3vw, 40px);
+  font-weight: 520;
   line-height: 1;
   text-transform: uppercase;
   cursor: pointer;
@@ -316,7 +317,6 @@ a:focus-visible {
 }
 
 .splash-actions small {
-  align-self: start;
   color: inherit;
   font-family: var(--font-geist-mono), monospace;
   font-size: 11px;
@@ -325,6 +325,7 @@ a:focus-visible {
 
 .splash-actions span {
   min-width: 0;
+  display: block;
   overflow-wrap: anywhere;
 }
 
@@ -334,8 +335,8 @@ a:focus-visible {
 }
 
 .splash-actions button:last-child {
-  min-height: clamp(62px, 6vw, 82px);
-  font-size: clamp(20px, 2.45vw, 31px);
+  min-height: clamp(82px, 7.8vw, 104px);
+  font-size: clamp(21px, 2.45vw, 32px);
 }
 
 .cover-meta {
@@ -547,9 +548,9 @@ a:focus-visible {
 .drops-copy h2,
 .about-section h2 {
   margin: 0;
-  font-family: Impact, "Arial Black", Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   font-size: clamp(42px, 6.4vw, 94px);
-  font-weight: 800;
+  font-weight: 820;
   line-height: 0.9;
   letter-spacing: 0;
   text-transform: uppercase;
@@ -559,27 +560,29 @@ a:focus-visible {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(18px, 2vw, 28px);
-  align-items: start;
+  align-items: stretch;
 }
 
 .product-card {
   display: grid;
+  grid-template-rows: auto 1fr;
   min-height: 0;
   border-top: 1px solid rgba(239, 237, 227, 0.28);
   background: transparent;
 }
 
 .product-card:nth-child(3n + 2) {
-  margin-top: 38px;
+  margin-top: 0;
 }
 
 .product-card:nth-child(3n) {
-  margin-top: 12px;
+  margin-top: 0;
 }
 
 .product-image {
   position: relative;
   aspect-ratio: 4 / 5;
+  width: 100%;
   min-height: 0;
   overflow: hidden;
   background: #242018;
@@ -711,7 +714,7 @@ a:focus-visible {
 
 .product-copy {
   display: grid;
-  align-content: space-between;
+  grid-template-rows: 1fr auto auto;
   gap: 18px;
   padding: 18px 0 0;
 }
@@ -726,10 +729,10 @@ a:focus-visible {
 
 .product-copy h3 {
   margin: 0 0 8px;
-  font-family: Impact, "Arial Black", Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   font-size: clamp(31px, 3.2vw, 48px);
-  font-weight: 800;
-  line-height: 0.88;
+  font-weight: 820;
+  line-height: 0.92;
   letter-spacing: 0;
   text-transform: uppercase;
 }
