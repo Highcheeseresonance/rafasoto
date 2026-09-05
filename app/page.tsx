@@ -45,31 +45,28 @@ const copy = {
     navAbout: "About",
     navContact: "Contact",
     cart: "Cart",
-    heroKicker: "Insert coin. Behave normally.",
+    heroKicker: "A small retail incident.",
     heroTitle: "Asteroids Supply",
-    heroBody:
-      "A fashion brand disguised as an abandoned arcade machine. Destroy the right words. Earn access to shirts that should not exist.",
+    heroBody: "Words fall. Shirts appear. Everyone behaves like this is normal.",
     play: "PLAY",
     collection: "THE COLLECTION",
     collectionTitle: "The Collection",
-    collectionText:
-      "Eleven organic cotton T-shirts modeled by aliens with unsettling professional range. You may inspect them here. You may not buy them here.",
-    foundAccess: "Found by play",
+    collectionText: "Look closely. Nothing here sells itself. The machine decides when a word can leave.",
+    foundAccess: "Catalogued",
     playToGet: "play to get the t-shirts",
     designer: "Designer",
     material: "Organic cotton, made on demand through La Tostadora.",
     gameTitle: "Play",
-    gameText:
-      "Destroy asteroids carrying words. Every word you hit enters the cart as possible access to that T-shirt.",
-    gameHint: "The basket only fills when the rock had something to say.",
+    gameText: "Shoot until language gives up. Found words move quietly into the basket.",
+    gameHint: "No newsletter. No prophecy. Just aim.",
     aboutTitle: "About",
     aboutText:
-      "Asteroids Supply makes T-shirts from words that should not exist and aliens who behave as if premium fashion were a perfectly normal human ritual. The joke is not that they are aliens. The joke is that they understand us too well.",
+      "Asteroids Supply makes organic cotton T-shirts from words with no legal origin. The models are aliens. They are taking it seriously.",
     contactTitle: "Contact",
     contactText: "For orders, collaborations, strange sightings and normal emails.",
     email: "hello@asteroidssuppply.com",
     instagram: "@asteroidssupply",
-    empty: "The basket is elegantly empty.",
+    empty: "Nothing found.",
     subtotal: "Subtotal",
     checkout: "Checkout soon",
     clear: "Clear",
@@ -83,31 +80,28 @@ const copy = {
     navAbout: "About",
     navContact: "Contact",
     cart: "Cesta",
-    heroKicker: "Insert coin. Behave normally.",
+    heroKicker: "Un pequeño incidente retail.",
     heroTitle: "Asteroids Supply",
-    heroBody:
-      "Una marca de moda disfrazada de máquina arcade abandonada. Destruye las palabras correctas. Consigue acceso a camisetas que no deberían existir.",
+    heroBody: "Caen palabras. Aparecen camisetas. Todo el mundo actua como si fuera normal.",
     play: "PLAY",
     collection: "THE COLLECTION",
     collectionTitle: "The Collection",
-    collectionText:
-      "Once camisetas de algodón orgánico posadas por aliens con una inquietante profesionalidad. Puedes mirarlas aquí. No puedes comprarlas aquí.",
-    foundAccess: "Found by play",
+    collectionText: "Mira con calma. Aquí nada se vende solo. La máquina decide cuándo sale una palabra.",
+    foundAccess: "Catalogued",
     playToGet: "play to get the t-shirts",
     designer: "Diseñador",
     material: "Algodón orgánico, producido bajo demanda con La Tostadora.",
     gameTitle: "Play",
-    gameText:
-      "Destruye asteroides con palabras. Cada palabra que aciertas entra en la cesta como posible acceso a esa camiseta.",
-    gameHint: "La cesta solo se llena cuando la roca tenia algo que decir.",
+    gameText: "Dispara hasta que el lenguaje ceda. Las palabras encontradas entran discretamente en la cesta.",
+    gameHint: "Sin newsletter. Sin profecía. Solo puntería.",
     aboutTitle: "About",
     aboutText:
-      "Asteroids Supply hace camisetas a partir de palabras que no deberian existir y aliens que actuan como si la moda premium fuese un ritual humano perfectamente normal. La broma no es que sean aliens. La broma es que nos han entendido demasiado bien.",
+      "Asteroids Supply hace camisetas de algodón orgánico a partir de palabras sin origen legal. Los modelos son aliens. Se lo están tomando en serio.",
     contactTitle: "Contact",
     contactText: "Para pedidos, colaboraciones, avistamientos raros y emails normales.",
     email: "hello@asteroidssuppply.com",
     instagram: "@asteroidssupply",
-    empty: "La cesta está elegantemente vacía.",
+    empty: "Nada encontrado.",
     subtotal: "Subtotal",
     checkout: "Checkout pronto",
     clear: "Vaciar",
@@ -128,8 +122,8 @@ const products: Product[] = [
     gallery: galleryFor("sunriot", ["Alien look 01", "Alien look 02", "Alien look 03", "T-shirt mockup"]),
     palette: "sun",
     line: {
-      en: "For people who have made peace with the glare.",
-      es: "Para gente que ha hecho las paces con el resplandor.",
+      en: "For rooms with no shade.",
+      es: "Para habitaciones sin sombra.",
     },
   },
   {
@@ -149,8 +143,8 @@ const products: Product[] = [
     ]),
     palette: "dusk",
     line: {
-      en: "A small collapse of color at the end of the day.",
-      es: "Un pequeño colapso de color al final del día.",
+      en: "Evening, overacting quietly.",
+      es: "La tarde, sobreactuando en silencio.",
     },
   },
   {
@@ -171,8 +165,8 @@ const products: Product[] = [
     ]),
     palette: "day",
     line: {
-      en: "The afternoon has softened. So have your standards.",
-      es: "La tarde se ha ablandado. Tus estándares también.",
+      en: "The day lost structure.",
+      es: "El día perdió estructura.",
     },
   },
   {
@@ -193,8 +187,8 @@ const products: Product[] = [
     ]),
     palette: "soul",
     line: {
-      en: "Emotional leakage, tastefully contained.",
-      es: "Fuga emocional, contenida con bastante gusto.",
+      en: "Private weather. Public shirt.",
+      es: "Clima privado. Camiseta pública.",
     },
   },
   {
@@ -208,8 +202,8 @@ const products: Product[] = [
     gallery: galleryFor("karmaggedon", ["Alien look 01", "Alien look 02", "Alien look 03", "T-shirt mockup"]),
     palette: "karma",
     line: {
-      en: "Consequences, but with better kerning.",
-      es: "Consecuencias, pero con mejor kerning.",
+      en: "Cause, effect, better spacing.",
+      es: "Causa, efecto, mejor espaciado.",
     },
   },
   {
@@ -232,8 +226,8 @@ const products: Product[] = [
     ]),
     palette: "motel",
     line: {
-      en: "The philosophy of leaving before breakfast.",
-      es: "La filosofía de irse antes del desayuno.",
+      en: "Leave the key. Keep the problem.",
+      es: "Deja la llave. Quédate el problema.",
     },
   },
   {
@@ -247,8 +241,8 @@ const products: Product[] = [
     gallery: galleryFor("brainglow", ["Alien look 01", "Alien lecture", "Emergency look", "T-shirt mockup"]),
     palette: "brain",
     line: {
-      en: "A thought arrived glowing. Nobody asked it to.",
-      es: "Llegó un pensamiento brillando. Nadie se lo pidió.",
+      en: "A thought with bad lighting.",
+      es: "Un pensamiento con mala luz.",
     },
   },
   {
@@ -262,8 +256,8 @@ const products: Product[] = [
     gallery: galleryFor("sunphony", ["Alien look 01", "Alien look 02", "Alien look 03", "Front mockup", "Back mockup"]),
     palette: "sunphony",
     line: {
-      en: "A controlled solar arrangement for difficult listeners.",
-      es: "Un arreglo solar controlado para oyentes difíciles.",
+      en: "Solar noise. Arranged politely.",
+      es: "Ruido solar. Ordenado con educación.",
     },
   },
   {
@@ -282,8 +276,8 @@ const products: Product[] = [
     ]),
     palette: "drift",
     line: {
-      en: "Available only after a small act of aim.",
-      es: "Disponible solo tras un pequeño acto de puntería.",
+      en: "Motion, pretending to be taste.",
+      es: "Movimiento, fingiendo ser gusto.",
     },
   },
   {
@@ -303,8 +297,8 @@ const products: Product[] = [
     ]),
     palette: "moon",
     line: {
-      en: "Hydration for bodies with no disclosed origin.",
-      es: "Hidratación para cuerpos de origen no declarado.",
+      en: "Fluid for undisclosed bodies.",
+      es: "Fluido para cuerpos no declarados.",
     },
   },
   {
@@ -318,8 +312,8 @@ const products: Product[] = [
     gallery: galleryFor("doomsnack", ["Alien look 01", "Alien look 02", "Alien look 03", "T-shirt mockup"]),
     palette: "doom",
     line: {
-      en: "A final bite, calmly styled.",
-      es: "Un último bocado, tranquilamente estilizado.",
+      en: "Last bite. Good posture.",
+      es: "Último bocado. Buena postura.",
     },
   },
 ];
@@ -365,7 +359,7 @@ function AsteroidsGame({ onUnlock }: AsteroidsGameProps) {
     score: 0,
     rocks: 0,
     combo: 1,
-    status: "Awaiting a small act of aim.",
+    status: "Waiting. Without enthusiasm.",
   });
 
   const start = () => {
@@ -419,7 +413,7 @@ function AsteroidsGame({ onUnlock }: AsteroidsGameProps) {
     let nextDropIndex = 0;
     let shipActive = true;
     let localGameOver = false;
-    let status = "Use arrows to move. Space shoots.";
+    let status = "Arrows move. Space shoots.";
 
     const publishHud = () => {
       setHud({ score, rocks, combo, status });
@@ -533,7 +527,7 @@ function AsteroidsGame({ onUnlock }: AsteroidsGameProps) {
       asteroids.length = 0;
       particles.length = 0;
       wordDisplays.length = 0;
-      status = "Use arrows to move. Space shoots.";
+      status = "Arrows move. Space shoots.";
       setGameOver(false);
       publishHud();
       createAsteroid(true);
@@ -554,7 +548,7 @@ function AsteroidsGame({ onUnlock }: AsteroidsGameProps) {
       runningRef.current = false;
       asteroids.length = 0;
       burst(ship.x + ship.width / 2, ship.y + ship.height / 2, "#efede3", 50);
-      status = "K.O. Press Space or Begin to restart.";
+      status = "K.O. Space or Begin restarts.";
       setGameOver(true);
       publishHud();
     };
@@ -631,13 +625,13 @@ function AsteroidsGame({ onUnlock }: AsteroidsGameProps) {
                 colors: wordColors(wordData.colorMode),
               });
               onUnlock(wordData.id);
-              status = `${wordData.word} added. Keep playing.`;
+              status = `${wordData.word} found. Continue.`;
               wordCounter = 0;
               sinceLastWord = 0;
             } else {
               burst(asteroid.x, asteroid.y, asteroid.baseColor, 12);
               burst(asteroid.x, asteroid.y, asteroid.lightColor, 6);
-              status = "Rock destroyed. The word is being difficult.";
+              status = "No word. A normal rock.";
             }
             bullets.splice(i, 1);
             asteroids.splice(j, 1);
@@ -768,10 +762,10 @@ function AsteroidsGame({ onUnlock }: AsteroidsGameProps) {
         ctx.fillStyle = "#efede3";
         ctx.font = "28px Arial";
         ctx.textAlign = "center";
-        ctx.fillText("ONE WORD. UNSEEN.", width / 2, height / 2 - 12);
+        ctx.fillText("UNREGISTERED WORDS", width / 2, height / 2 - 12);
         ctx.font = "14px monospace";
         ctx.fillStyle = "#a7a092";
-        ctx.fillText("Press Begin. Then destroy with unreasonable calm.", width / 2, height / 2 + 24);
+        ctx.fillText("Press Begin. Shoot with poise.", width / 2, height / 2 + 24);
       }
 
       if (localGameOver) {
@@ -783,7 +777,7 @@ function AsteroidsGame({ onUnlock }: AsteroidsGameProps) {
         ctx.fillText("K.O", width / 2, height / 2 - 8);
         ctx.font = "14px monospace";
         ctx.fillStyle = "#a7a092";
-        ctx.fillText("Space restarts. Nobody saw that.", width / 2, height / 2 + 30);
+        ctx.fillText("Space restarts. Maintain composure.", width / 2, height / 2 + 30);
       }
     };
 
@@ -1013,8 +1007,14 @@ export default function Home() {
             <h1>{t.heroTitle}</h1>
             <span>{t.heroBody}</span>
             <div className="splash-actions">
-              <button onClick={() => showView("play")}>{t.play}</button>
-              <button onClick={() => showView("collection")}>{t.collection}</button>
+              <button onClick={() => showView("play")}>
+                <small>01</small>
+                <span>{t.play}</span>
+              </button>
+              <button onClick={() => showView("collection")}>
+                <small>02</small>
+                <span>{t.collection}</span>
+              </button>
             </div>
           </div>
           <div className="cover-meta">
@@ -1034,7 +1034,7 @@ export default function Home() {
             </div>
           </div>
           <div className="product-grid">
-            {products.map((product) => (
+            {products.map((product, index) => (
               <article className={`product-card ${product.palette}`} key={product.id}>
                 <div className="product-image">
                   <ProductGallery product={product} />
@@ -1042,6 +1042,7 @@ export default function Home() {
                 </div>
                 <div className="product-copy">
                   <div>
+                    <small>{String(index + 1).padStart(2, "0")}</small>
                     <h3>{product.name}</h3>
                     <p>{product.line[lang]}</p>
                   </div>
