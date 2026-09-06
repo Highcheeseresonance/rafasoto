@@ -749,7 +749,7 @@ a:focus-visible {
 
 .product-copy {
   display: grid;
-  grid-template-rows: minmax(128px, 1fr) auto auto;
+  grid-template-rows: minmax(154px, 1fr) auto auto;
   gap: 16px;
   padding: 18px 0 0;
 }
@@ -757,11 +757,12 @@ a:focus-visible {
 .product-copy h3 {
   margin: 0 0 8px;
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
-  font-size: clamp(32px, 3.8vw, 58px);
+  font-size: clamp(30px, 3.2vw, 50px);
   font-weight: 900;
-  line-height: 0.86;
+  line-height: 0.9;
   letter-spacing: 0;
   text-transform: uppercase;
+  overflow-wrap: anywhere;
 }
 
 .product-copy p {
