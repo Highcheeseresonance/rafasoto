@@ -1153,7 +1153,7 @@ export default function Home() {
             <div className="cart-list">
               {cartItems.map((item) => (
                 <div className="cart-line" key={item.id}>
-                  <img src={item.gallery?.[0]?.src ?? item.image ?? item.mockupImage} alt={`${item.name} shirt`} />
+                  <img src={item.mockupImage ?? item.gallery?.[0]?.src ?? item.image} alt={`${item.name} shirt`} />
                   <div>
                     <span>{item.name}</span>
                     <small>
