@@ -241,7 +241,7 @@ a:focus-visible {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(243, 239, 228, 0.97) 0 34%, rgba(243, 239, 228, 0.08) 34% 68%, rgba(17, 16, 13, 0.64) 68%),
+    linear-gradient(102deg, rgba(243, 239, 228, 0.98) 0 30%, rgba(243, 239, 228, 0.04) 30% 61%, rgba(216, 255, 50, 0.82) 61% 62.4%, rgba(17, 16, 13, 0.66) 62.4%),
     linear-gradient(0deg, rgba(17, 16, 13, 0.64), rgba(17, 16, 13, 0.04) 48%, rgba(17, 16, 13, 0.3));
 }
 
@@ -256,6 +256,16 @@ a:focus-visible {
     linear-gradient(90deg, rgba(17, 16, 13, 0.08) 1px, transparent 1px);
   background-size: 25% 100%, 25% 100%;
   mix-blend-mode: multiply;
+}
+
+.splash-cover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  border-left: clamp(18px, 5vw, 74px) solid rgba(17, 16, 13, 0.08);
+  border-right: clamp(18px, 5vw, 74px) solid rgba(17, 16, 13, 0.08);
 }
 
 .splash-copy {
@@ -312,9 +322,7 @@ a:focus-visible {
 
 .splash-actions button {
   display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: center;
-  gap: 14px;
+  place-items: center;
   min-height: clamp(82px, 7.8vw, 104px);
   border: 0;
   border-right: 1px solid var(--ink);
@@ -334,19 +342,6 @@ a:focus-visible {
 .splash-actions button:hover {
   transform: none;
   background: var(--acid);
-}
-
-.splash-actions small {
-  color: inherit;
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 11px;
-  opacity: 0.68;
-}
-
-.splash-actions span {
-  min-width: 0;
-  display: block;
-  overflow-wrap: anywhere;
 }
 
 .splash-actions button:first-child {
@@ -569,9 +564,8 @@ a:focus-visible {
 }
 
 .section-heading {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
   margin-bottom: clamp(34px, 5vw, 64px);
   border-top: 1px solid var(--ink);
   padding-top: 18px;
@@ -599,6 +593,7 @@ a:focus-visible {
 .product-card {
   display: grid;
   grid-template-rows: auto 1fr;
+  height: 100%;
   min-height: 0;
   border-top: 1px solid var(--ink);
   background: transparent;
@@ -749,17 +744,9 @@ a:focus-visible {
 
 .product-copy {
   display: grid;
-  grid-template-rows: 1fr auto auto;
+  grid-template-rows: minmax(128px, 1fr) auto auto;
   gap: 16px;
   padding: 18px 0 0;
-}
-
-.product-copy small {
-  display: block;
-  margin-bottom: 10px;
-  color: var(--signal);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 11px;
 }
 
 .product-copy h3 {

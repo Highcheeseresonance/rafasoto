@@ -1007,14 +1007,8 @@ export default function Home() {
             <h1>{t.heroTitle}</h1>
             <span>{t.heroBody}</span>
             <div className="splash-actions">
-              <button onClick={() => showView("play")}>
-                <small>01</small>
-                <span>{t.play}</span>
-              </button>
-              <button onClick={() => showView("collection")}>
-                <small>02</small>
-                <span>{t.collection}</span>
-              </button>
+              <button onClick={() => showView("play")}>{t.play}</button>
+              <button onClick={() => showView("collection")}>{t.collection}</button>
             </div>
           </div>
           <div className="cover-meta">
@@ -1027,14 +1021,13 @@ export default function Home() {
       {view === "collection" && (
         <section className="screen-section collection-screen">
           <div className="section-heading">
-            <p>01</p>
             <div>
               <h2>{t.collectionTitle}</h2>
               <span>{t.collectionText}</span>
             </div>
           </div>
           <div className="product-grid">
-            {products.map((product, index) => (
+            {products.map((product) => (
               <article className={`product-card ${product.palette}`} key={product.id}>
                 <div className="product-image">
                   <ProductGallery product={product} />
@@ -1042,7 +1035,6 @@ export default function Home() {
                 </div>
                 <div className="product-copy">
                   <div>
-                    <small>{String(index + 1).padStart(2, "0")}</small>
                     <h3>{product.name}</h3>
                     <p>{product.line[lang]}</p>
                   </div>
@@ -1067,7 +1059,6 @@ export default function Home() {
       {view === "play" && (
         <section className="screen-section play-screen">
           <div className="drops-copy">
-            <p>02</p>
             <h2>{t.gameTitle}</h2>
             <span>{t.gameText}</span>
             <small>{t.gameHint}</small>
