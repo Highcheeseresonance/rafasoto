@@ -63,6 +63,8 @@ test("source contains collection and drop logic", async () => {
   assert.match(page, /splash-cover/);
   assert.match(page, /hamburger-button/);
   assert.match(page, /play to get the t-shirts/);
+  assert.match(page, /34 EUR/);
+  assert.doesNotMatch(page, /42 EUR/);
   assert.match(page, /gameWords = products\.map/);
   assert.match(page, /WordDisplay/);
   assert.match(page, /found\. Continue/);
