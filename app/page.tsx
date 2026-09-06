@@ -1153,21 +1153,26 @@ export default function Home() {
             <div className="cart-list">
               {cartItems.map((item) => (
                 <div className="cart-line" key={item.id}>
-                  <span>{item.name}</span>
-                  <small>
-                    {item.qty} x {item.price} EUR
-                  </small>
+                  <img src={item.gallery?.[0]?.src ?? item.image ?? item.mockupImage} alt={`${item.name} shirt`} />
+                  <div>
+                    <span>{item.name}</span>
+                    <small>
+                      {item.qty} x {item.price} EUR
+                    </small>
+                  </div>
                 </div>
               ))}
             </div>
-            <div className="cart-total">
-              <span>{t.subtotal}</span>
-              <strong>{total} EUR</strong>
+            <div className="cart-actions">
+              <div className="cart-total">
+                <span>{t.subtotal}</span>
+                <strong>{total} EUR</strong>
+              </div>
+              <button className="checkout-button">{t.checkout}</button>
+              <button className="clear-button" onClick={() => setCart({})}>
+                {t.clear}
+              </button>
             </div>
-            <button className="checkout-button">{t.checkout}</button>
-            <button className="clear-button" onClick={() => setCart({})}>
-              {t.clear}
-            </button>
           </>
         )}
       </aside>
