@@ -241,8 +241,8 @@ a:focus-visible {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(102deg, rgba(243, 239, 228, 0.98) 0 30%, rgba(243, 239, 228, 0.04) 30% 61%, rgba(216, 255, 50, 0.82) 61% 62.4%, rgba(17, 16, 13, 0.66) 62.4%),
-    linear-gradient(0deg, rgba(17, 16, 13, 0.64), rgba(17, 16, 13, 0.04) 48%, rgba(17, 16, 13, 0.3));
+    linear-gradient(90deg, rgba(17, 16, 13, 0.82), rgba(17, 16, 13, 0.18) 54%, rgba(17, 16, 13, 0.44)),
+    linear-gradient(0deg, rgba(17, 16, 13, 0.78), rgba(17, 16, 13, 0.05) 48%, rgba(17, 16, 13, 0.28));
 }
 
 .splash-cover::before {
@@ -252,20 +252,25 @@ a:focus-visible {
   z-index: 1;
   pointer-events: none;
   background-image:
-    linear-gradient(rgba(17, 16, 13, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(17, 16, 13, 0.08) 1px, transparent 1px);
+    linear-gradient(rgba(243, 239, 228, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(243, 239, 228, 0.08) 1px, transparent 1px);
   background-size: 25% 100%, 25% 100%;
-  mix-blend-mode: multiply;
+  mix-blend-mode: screen;
 }
 
 .splash-cover::after {
   content: "";
   position: absolute;
-  inset: 0;
   z-index: 1;
   pointer-events: none;
-  border-left: clamp(18px, 5vw, 74px) solid rgba(17, 16, 13, 0.08);
-  border-right: clamp(18px, 5vw, 74px) solid rgba(17, 16, 13, 0.08);
+  top: -22vh;
+  left: min(62vw, 1180px);
+  width: clamp(9px, 0.85vw, 16px);
+  height: 146vh;
+  background: var(--acid);
+  transform: rotate(13deg);
+  transform-origin: center;
+  box-shadow: 0 0 0 1px rgba(17, 16, 13, 0.32);
 }
 
 .splash-copy {
@@ -273,7 +278,7 @@ a:focus-visible {
   z-index: 2;
   display: grid;
   max-width: min(760px, 52vw);
-  color: var(--ink);
+  color: var(--paper);
 }
 
 .splash-copy p,
@@ -289,7 +294,7 @@ a:focus-visible {
 .splash-copy h1 {
   margin: 0;
   max-width: 8.8ch;
-  color: var(--ink);
+  color: var(--paper);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   font-size: clamp(72px, 9.8vw, 154px);
   font-weight: 900;
@@ -305,7 +310,7 @@ a:focus-visible {
   display: block;
   max-width: 560px;
   margin-top: 20px;
-  color: rgba(17, 16, 13, 0.74);
+  color: rgba(243, 239, 228, 0.78);
   font-size: clamp(18px, 1.7vw, 22px);
   line-height: 1.34;
 }
@@ -1170,12 +1175,19 @@ a:focus-visible {
 
   .splash-overlay {
     background:
-      linear-gradient(0deg, rgba(243, 239, 228, 0.96) 0 58%, rgba(17, 16, 13, 0.2) 58%),
-      linear-gradient(90deg, rgba(243, 239, 228, 0.76), rgba(17, 16, 13, 0.16));
+      linear-gradient(0deg, rgba(17, 16, 13, 0.86), rgba(17, 16, 13, 0.12) 54%, rgba(17, 16, 13, 0.46)),
+      linear-gradient(90deg, rgba(17, 16, 13, 0.72), rgba(17, 16, 13, 0.18));
   }
 
   .splash-copy {
     max-width: 100%;
+  }
+
+  .splash-cover::after {
+    left: auto;
+    right: 16vw;
+    width: 8px;
+    transform: rotate(11deg);
   }
 
   .splash-copy h1 {
