@@ -350,6 +350,7 @@ type WordDisplay = {
 function AsteroidsGame({ onUnlock }: AsteroidsGameProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const keysRef = useRef<Record<string, boolean>>({});
+  const touchTargetRef = useRef<number | null>(null);
   const rafRef = useRef<number | null>(null);
   const runningRef = useRef(false);
   const shootRef = useRef<(() => void) | null>(null);
@@ -417,6 +418,10 @@ function AsteroidsGame({ onUnlock }: AsteroidsGameProps) {
 
     const publishHud = () => {
       setHud({ score, rocks, combo, status });
+    };
+
+    const moveShipTo = (targetX: number) => {
+      ship.x = Math.max(10, Math.min(width - ship.width - 10, targetX - ship.width / 2));
     };
 
     const rectCircle = (
@@ -564,6 +569,7 @@ function AsteroidsGame({ onUnlock }: AsteroidsGameProps) {
       if (comboTimer <= 0) combo = 1;
 
       if (runningRef.current && shipActive) {
+        if (touchTargetRef.current !== null) moveShipTo(touchTargetRef.current);
         if (keysRef.current.ArrowLeft && ship.x > 10) ship.x -= ship.speed;
         if (keysRef.current.ArrowRight && ship.x < width - ship.width - 10) ship.x += ship.speed;
       }
@@ -765,7 +771,7 @@ function AsteroidsGame({ onUnlock }: AsteroidsGameProps) {
         ctx.fillText("UNREGISTERED WORDS", width / 2, height / 2 - 12);
         ctx.font = "14px monospace";
         ctx.fillStyle = "#a7a092";
-        ctx.fillText("Press Begin. Shoot with poise.", width / 2, height / 2 + 24);
+        ctx.fillText("Tap to shoot. Drag to move.", width / 2, height / 2 + 24);
       }
 
       if (localGameOver) {
@@ -812,6 +818,37 @@ function AsteroidsGame({ onUnlock }: AsteroidsGameProps) {
     };
   }, [onUnlock, started]);
 
+  const aimWithPointer = (event: React.PointerEvent<HTMLCanvasElement>) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const rect = canvas.getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width) * canvas.width;
+    touchTargetRef.current = x;
+  };
+
+  const handleCanvasPointerDown = (event: React.PointerEvent<HTMLCanvasElement>) => {
+    event.preventDefault();
+    event.currentTarget.setPointerCapture(event.pointerId);
+    aimWithPointer(event);
+    if (gameOver) {
+      shootRef.current?.();
+      return;
+    }
+    if (!started) start();
+    shootRef.current?.();
+  };
+
+  const handleCanvasPointerMove = (event: React.PointerEvent<HTMLCanvasElement>) => {
+    if (event.buttons !== 1) return;
+    event.preventDefault();
+    aimWithPointer(event);
+  };
+
+  const handleCanvasPointerUp = (event: React.PointerEvent<HTMLCanvasElement>) => {
+    event.preventDefault();
+    touchTargetRef.current = null;
+  };
+
   return (
     <div className="game-shell">
       <div className="game-topline">
@@ -825,7 +862,16 @@ function AsteroidsGame({ onUnlock }: AsteroidsGameProps) {
           Combo <strong>x{hud.combo}</strong>
         </span>
       </div>
-      <canvas ref={canvasRef} width={800} height={600} aria-label="Asteroids Supply drop game" />
+      <canvas
+        ref={canvasRef}
+        width={800}
+        height={600}
+        aria-label="Asteroids Supply drop game"
+        onPointerDown={handleCanvasPointerDown}
+        onPointerMove={handleCanvasPointerMove}
+        onPointerUp={handleCanvasPointerUp}
+        onPointerCancel={handleCanvasPointerUp}
+      />
       <div className="game-status">
         <span>{hud.status}</span>
         <button onClick={() => (gameOver ? shootRef.current?.() : start())}>

@@ -904,6 +904,8 @@ a:focus-visible {
   border: 2px solid #444;
   background: #000;
   image-rendering: pixelated;
+  touch-action: none;
+  user-select: none;
 }
 
 .game-status {
@@ -1170,8 +1172,13 @@ a:focus-visible {
   }
 
   .splash-cover {
-    min-height: 100svh;
-    padding-top: 128px;
+    min-height: 100dvh;
+    align-items: end;
+    padding: 106px 14px 22px;
+  }
+
+  .splash-cover img {
+    object-position: center top;
   }
 
   .splash-overlay {
@@ -1192,17 +1199,26 @@ a:focus-visible {
   }
 
   .splash-copy h1 {
-    font-size: clamp(58px, 18vw, 88px);
+    max-width: 7.8ch;
+    font-size: clamp(52px, 16vw, 78px);
+    line-height: 0.84;
+  }
+
+  .splash-copy > span {
+    margin-top: 14px;
+    font-size: 16px;
+    line-height: 1.28;
   }
 
   .splash-actions {
     grid-template-columns: 1fr;
+    margin-top: 24px;
   }
 
   .splash-actions button,
   .splash-actions button:last-child {
-    min-height: 66px;
-    font-size: clamp(20px, 9vw, 34px);
+    min-height: 58px;
+    font-size: clamp(19px, 8vw, 31px);
   }
 
   .cover-meta {
@@ -1255,6 +1271,7 @@ a:focus-visible {
 
   .game-shell canvas {
     max-height: none;
+    cursor: crosshair;
   }
 
   .game-status {
@@ -1263,6 +1280,6 @@ a:focus-visible {
   }
 
   .touch-controls {
-    display: flex;
+    display: none;
   }
 }
