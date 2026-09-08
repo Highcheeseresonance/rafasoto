@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 type Lang = "en" | "es";
-type View = "splash" | "play" | "collection" | "about" | "contact";
+type View = "splash" | "play" | "collection" | "about" | "contact" | "legal";
 
 type Product = {
   id: string;
@@ -44,10 +44,11 @@ const copy = {
     navCollection: "The Collection",
     navAbout: "About",
     navContact: "Contact",
+    navLegal: "Legal",
     cart: "Cart",
     heroKicker: "A small retail incident.",
     heroTitle: "Asteroids Supply",
-    heroBody: "Words fall. Shirts appear. Everyone behaves like this is normal.",
+    heroBody: "The only way to buy is to play. Break the right rocks, catch the words, then edit your basket like a civilized visitor.",
     play: "PLAY",
     collection: "THE COLLECTION",
     collectionTitle: "The Collection",
@@ -57,13 +58,18 @@ const copy = {
     designer: "Designer",
     material: "Organic cotton, made on demand through La Tostadora.",
     gameTitle: "Play",
-    gameText: "Shoot until language gives up. Found words move quietly into the basket.",
-    gameHint: "No newsletter. No prophecy. Just aim.",
+    gameText: "Break rocks until you find the shirt words. Each word you catch appears in the cart, where you can keep only the pieces you actually want.",
+    gameHint: "Move, shoot, review the basket. Commerce, allegedly.",
     aboutTitle: "About",
     aboutText:
       "Asteroids Supply makes organic cotton T-shirts from words with no legal origin. The models are aliens. They are taking it seriously.",
     contactTitle: "Contact",
     contactText: "For orders, collaborations, strange sightings and normal emails.",
+    legalTitle: "Legal",
+    legalText: "Responsible company",
+    legalCompany: "SACRAMENTO HEIGHTS SL",
+    legalAddress: "CL. RAMBLA DE CATALUNYA, 32 4-2, 08007 BARCELONA, BARCELONA",
+    legalNif: "NIF B64930241",
     email: "hello@asteroidssuppply.com",
     instagram: "@asteroidssupply",
     empty: "Nothing found.",
@@ -79,10 +85,11 @@ const copy = {
     navCollection: "The Collection",
     navAbout: "About",
     navContact: "Contact",
+    navLegal: "Legal",
     cart: "Cesta",
     heroKicker: "Un pequeño incidente retail.",
     heroTitle: "Asteroids Supply",
-    heroBody: "Caen palabras. Aparecen camisetas. Todo el mundo actua como si fuera normal.",
+    heroBody: "La única forma de comprar es jugar. Rompe las rocas correctas, caza las palabras y luego edita la cesta como una visita civilizada.",
     play: "PLAY",
     collection: "THE COLLECTION",
     collectionTitle: "The Collection",
@@ -92,13 +99,18 @@ const copy = {
     designer: "Diseñador",
     material: "Algodón orgánico, producido bajo demanda con La Tostadora.",
     gameTitle: "Play",
-    gameText: "Dispara hasta que el lenguaje ceda. Las palabras encontradas entran discretamente en la cesta.",
-    gameHint: "Sin newsletter. Sin profecía. Solo puntería.",
+    gameText: "Rompe rocas hasta encontrar las palabras de las camisetas. Cada palabra cazada aparece en la cesta, donde puedes quedarte solo con las piezas que realmente quieres.",
+    gameHint: "Muévete, dispara, revisa la cesta. Comercio, supuestamente.",
     aboutTitle: "About",
     aboutText:
       "Asteroids Supply hace camisetas de algodón orgánico a partir de palabras sin origen legal. Los modelos son aliens. Se lo están tomando en serio.",
     contactTitle: "Contact",
     contactText: "Para pedidos, colaboraciones, avistamientos raros y emails normales.",
+    legalTitle: "Legal",
+    legalText: "Empresa responsable",
+    legalCompany: "SACRAMENTO HEIGHTS SL",
+    legalAddress: "CL. RAMBLA DE CATALUNYA, 32 4-2, 08007 BARCELONA, BARCELONA",
+    legalNif: "NIF B64930241",
     email: "hello@asteroidssuppply.com",
     instagram: "@asteroidssupply",
     empty: "Nada encontrado.",
@@ -1038,6 +1050,7 @@ export default function Home() {
           <button onClick={() => showView("collection")}>{t.navCollection}</button>
           <button onClick={() => showView("about")}>{t.navAbout}</button>
           <button onClick={() => showView("contact")}>{t.navContact}</button>
+          <button onClick={() => showView("legal")}>{t.navLegal}</button>
         </nav>
       </header>
 
@@ -1136,6 +1149,21 @@ export default function Home() {
               {t.instagram}
             </a>
           </div>
+        </section>
+      )}
+
+      {view === "legal" && (
+        <section className="screen-section legal-screen">
+          <div>
+            <p>Legal</p>
+            <h2>{t.legalTitle}</h2>
+            <span>{t.legalText}</span>
+          </div>
+          <address className="legal-copy">
+            <strong>{t.legalCompany}</strong>
+            <span>{t.legalAddress}</span>
+            <span>{t.legalNif}</span>
+          </address>
         </section>
       )}
 

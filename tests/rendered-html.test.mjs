@@ -34,6 +34,7 @@ test("server-renders Asteroids Supply", async () => {
   assert.match(html, /PLAY/);
   assert.match(html, /THE COLLECTION/);
   assert.match(html, /A small retail incident\./);
+  assert.match(html, /The only way to buy is to play/);
   assert.doesNotMatch(html, /codex-preview|SkeletonPreview|react-loading-skeleton/i);
 });
 
@@ -63,6 +64,10 @@ test("source contains collection and drop logic", async () => {
   assert.match(page, /splash-cover/);
   assert.match(page, /hamburger-button/);
   assert.match(page, /play to get the t-shirts/);
+  assert.match(page, /The only way to buy is to play/);
+  assert.match(page, /Break rocks until you find the shirt words/);
+  assert.match(page, /SACRAMENTO HEIGHTS SL/);
+  assert.match(page, /B64930241/);
   assert.match(page, /34 EUR/);
   assert.doesNotMatch(page, /42 EUR/);
   assert.match(page, /gameWords = products\.map/);
