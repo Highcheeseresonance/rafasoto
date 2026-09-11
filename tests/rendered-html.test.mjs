@@ -76,6 +76,7 @@ test("source contains collection and drop logic", async () => {
   assert.match(page, /hamburger-button/);
   assert.match(page, /play to get the t-shirts/);
   assert.match(page, /The only way to buy is to play/);
+  assert.match(page, /not reached Earth/);
   assert.match(page, /Break rocks until you find the shirt words/);
   assert.match(page, /SACRAMENTO HEIGHTS SL/);
   assert.match(page, /B64930241/);

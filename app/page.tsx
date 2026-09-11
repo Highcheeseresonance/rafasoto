@@ -48,7 +48,8 @@ const copy = {
     cart: "Cart",
     heroKicker: "A small retail incident.",
     heroTitle: "Asteroids Supply",
-    heroBody: "The only way to buy is to play. Break the right rocks, catch the words, then edit your basket like a civilized visitor.",
+    heroBody:
+      "The only way to buy is to play. Break the right rocks, catch the words before they reach Earth, then edit your basket like a civilized visitor.",
     play: "PLAY",
     collection: "THE COLLECTION",
     collectionTitle: "The Collection",
@@ -62,7 +63,7 @@ const copy = {
     gameHint: "Move, shoot, review the basket. Commerce, allegedly.",
     aboutTitle: "About",
     aboutText:
-      "Asteroids Supply makes organic cotton T-shirts from words with no legal origin. The models are aliens. They are taking it seriously.",
+      "Asteroids Supply makes organic cotton T-shirts from words that do not exist yet, mostly because they have not reached Earth. The models are aliens. They are taking it seriously.",
     contactTitle: "Contact",
     contactText: "For orders, collaborations, strange sightings and normal emails.",
     legalTitle: "Legal",
@@ -89,7 +90,8 @@ const copy = {
     cart: "Cesta",
     heroKicker: "Un pequeño incidente retail.",
     heroTitle: "Asteroids Supply",
-    heroBody: "La única forma de comprar es jugar. Rompe las rocas correctas, caza las palabras y luego edita la cesta como una visita civilizada.",
+    heroBody:
+      "La única forma de comprar es jugar. Rompe las rocas correctas, caza las palabras antes de que lleguen a la Tierra y luego edita la cesta como una visita civilizada.",
     play: "PLAY",
     collection: "THE COLLECTION",
     collectionTitle: "The Collection",
@@ -103,7 +105,7 @@ const copy = {
     gameHint: "Muévete, dispara, revisa la cesta. Comercio, supuestamente.",
     aboutTitle: "About",
     aboutText:
-      "Asteroids Supply hace camisetas de algodón orgánico a partir de palabras sin origen legal. Los modelos son aliens. Se lo están tomando en serio.",
+      "Asteroids Supply hace camisetas de algodón orgánico a partir de palabras que todavía no existen, sobre todo porque aún no han llegado a la Tierra. Los modelos son aliens. Se lo están tomando en serio.",
     contactTitle: "Contact",
     contactText: "Para pedidos, colaboraciones, avistamientos raros y emails normales.",
     legalTitle: "Legal",
