@@ -281,9 +281,10 @@ const products: Product[] = [
     image: "/assets/driftique.png",
     mockupImage: "/assets/driftique-mockup.png",
     gallery: galleryItems("driftique", [
-      [5, "Alien look 01"],
-      [6, "Alien look 02"],
-      [7, "Alien look 03"],
+      [1, "Alien look 01"],
+      [2, "Alien look 02"],
+      [3, "Alien look 03"],
+      [4, "Alien look 04"],
       [8, "T-shirt mockup"],
     ]),
     palette: "drift",

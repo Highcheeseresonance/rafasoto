@@ -898,6 +898,8 @@ a:focus-visible {
   position: relative;
   display: grid;
   gap: 12px;
+  justify-self: center;
+  width: min(100%, 900px);
 }
 
 .game-topline,
@@ -931,7 +933,8 @@ a:focus-visible {
 .game-shell canvas {
   display: block;
   width: 100%;
-  max-height: min(68vh, 640px);
+  height: auto;
+  max-height: none;
   aspect-ratio: 4 / 3;
   border: 2px solid #444;
   background: #000;
